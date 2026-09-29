@@ -8,7 +8,7 @@ The free edition completes the entire workflow for one real subtitle track. It d
 
 [Try the free browser edition](https://pocketlogicprints.itch.io/subtitle-recut-desk): on itch.io, choose **Run tool**, then **Load synthetic example**. Both free versions accept one real SRT track; the supplied two-track tutorial is an exception.
 
-For a local copy, [download the free one-track ZIP](https://github.com/KimJiUng/subtitle-recut-free/releases/download/v1.1-github-free/Subtitle-Recut-Desk-GitHub-Free-v1.1.zip), extract it, and open `Subtitle-Recut-Desk-Trial-v1.1.html` in a modern desktop browser. The HTML embeds its code and styles; it needs no installation or runtime network connection. The `Trial` filename is retained because its bytes are identical to the v1.1 free application.
+For a local copy, [download the free one-track ZIP](https://github.com/KimJiUng/subtitle-recut-free/releases/download/v1.1.1-github-free/Subtitle-Recut-Desk-GitHub-Free-v1.1.1.zip), extract it, and open `Subtitle-Recut-Desk-Trial-v1.1.1.html` in a modern desktop browser. The HTML embeds its code and styles; it needs no installation or runtime network connection. The `Trial` filename is retained because its bytes are identical to the v1.1.1 free application.
 
 Direct opening from an extracted folder has not been verified by the browser tooling used for this release. Finished-app checks were performed in desktop Chrome served from localhost. Test with copies of your files in your own browser before relying on the result; mobile and all-browser compatibility are unverified.
 

@@ -1,3 +1,11 @@
+# GitHub Free Edition v1.1.1
+
+Fixes a review-interface bug where switching a retained segment after typing could restore an older caption draft. The latest text now survives segment changes, including a blank draft. Explicit confirmation is still required for the newly selected segment. Timing rules, checkpoint format, free one-track capacity and license permissions are unchanged.
+
+Existing v1.1 checkpoints remain supported. Regression, browser and final public delivery evidence are recorded separately; this patch is not evidence of customer demand or revenue.
+
+## Historical v1.1 notes
+
 # GitHub Free Edition v1.1
 
 Prepared 2026-09-30 for the existing free distribution. This version adds explicit local review-checkpoint save/resume to the one-real-track application. Partial drafts and confirmed decisions can be saved with original subtitles and cuts, then resumed after fresh original-timeline acknowledgement. A failed import preserves the previous workspace; new edits/imports override older reads.

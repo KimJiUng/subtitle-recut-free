@@ -87,9 +87,9 @@
       </section>
       <section class="workflow-notes" aria-label="Useful boundaries"><p><strong>What stays exact</strong><span>Millisecond timing, Unicode text, original cue references, and your explicit review decisions.</span></p><p><strong>What remains your judgment</strong><span>Which words belong in a surviving segment and whether the final captions fit the edited video.</span></p><p><strong>A free alternative</strong><span>Subtitle Edit offers broader subtitle and video-cutting tools. This desk focuses on shared cut plans and recorded boundary decisions.</span></p></section>
     </main>
-    <footer><span id="version-label">Subtitle Recut Desk 1.1</span><span>Local files. Clear decisions. A traceable result.</span></footer>
+    <footer><span id="version-label">Subtitle Recut Desk 1.1.1</span><span>Local files. Clear decisions. A traceable result.</span></footer>
   </div>
-  <script id="recut-config" type="application/json">{"edition":"trial","maxTracks":1,"maxCues":5000,"maxBytes":2097152,"maxCuts":100,"version":"1.1"}</script>
+  <script id="recut-config" type="application/json">{"edition":"trial","maxTracks":1,"maxCues":5000,"maxBytes":2097152,"maxCuts":100,"version":"1.1.1"}</script>
   <script type="module">
 (()=>{
 const __core = (() => {
@@ -1112,7 +1112,7 @@ function mountRecutDesk() {
     choice.addEventListener('change', () => run(() => {
       if (choice.value === 'drop') desk.setDecision(row.key, { action: 'drop' });
       else if (!choice.value) desk.setDecision(row.key, null);
-      else desk.setReviewDraft(row.key, Number(choice.value.split(':')[1]), draft?.text ?? row.original.text);
+      else desk.setReviewDraft(row.key, Number(choice.value.split(':')[1]), state.drafts[row.key]?.text ?? row.original.text);
     }));
     const badge = node('span', `status-tag ${decision ? 'confirmed' : 'review'}`, decision ? decision.action === 'drop' ? 'Explicitly dropped' : 'Retained text confirmed' : 'Needs a decision');
     cell.append(badge, choice);
