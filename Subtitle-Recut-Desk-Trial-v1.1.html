@@ -13,6 +13,7 @@
 @media(max-width:1050px){.app-shell{padding:0 28px}.hero{gap:35px;grid-template-columns:minmax(0,1fr) 250px}.panel{padding:20px}.panel-heading{align-items:flex-start;flex-wrap:wrap;gap:10px}.panel-heading h2{font-size:17px}.demo-row{align-items:flex-start;flex-direction:column;gap:6px}.setup-grid{gap:16px;grid-template-columns:1fr 1.1fr}.time-range{white-space:normal;line-height:1.8}.example-actions{align-items:flex-start}.example-actions>button{max-width:220px}.header-meta{font-size:10px}}
 @media(max-width:760px){.app-shell{padding:0 19px}.app-header{height:74px;gap:12px}.brand{font-size:9px;letter-spacing:.7px;gap:7px}.brand-icon{font-size:18px}.header-meta{font-size:10px;gap:5px}.header-divider,.local-dot{display:none}.header-meta{font-size:0}.edition-label{font-size:10px}.hero{display:block;padding:32px 0 19px}.hero-copy h1{font-size:37px;letter-spacing:-1.5px}.hero-description{font-size:17px;margin-top:13px}.hero-aside{display:none}.privacy-strip{align-items:flex-start;gap:8px;padding-bottom:20px;flex-wrap:wrap}.privacy-strip p{font-size:11px;flex-basis:85%}.privacy-strip>button{margin-left:23px}.setup-grid{grid-template-columns:1fr;gap:16px}.panel{padding:20px}.panel-heading{align-items:center;flex-wrap:nowrap}.panel-heading h2{font-size:17px}.panel-heading .pill{font-size:9px;padding:3px 7px}.step-heading{gap:9px}.step-number{width:27px;height:27px}.file-drop{min-height:140px}.demo-row{flex-direction:row;align-items:center}.review-panel{margin-top:16px}.stats-grid>div{padding:13px 11px}.stats-grid strong{font-size:25px}.stats-grid span{font-size:9px}.example-actions{flex-direction:column;gap:11px}.example-actions>button{max-width:none}.review-toolbar{align-items:flex-start;flex-direction:column;gap:10px}.review-toolbar>strong{padding:0;font-size:11px}.filter-fields{width:100%;gap:10px}.filter-fields label{min-width:0;flex:1}.filter-fields select{width:100%;max-width:none;font-size:11px}.review-table thead{display:none}.review-table,.review-table tbody,.review-table tr,.review-table tbody th,.review-table td{display:block;width:100%}.review-table tr{padding:16px 13px;border-top:1px solid var(--line)}.review-table tr:first-child{border-top:0}.review-table tbody th,.review-table td{border:0;padding:0}.identity-cell{display:flex!important;gap:10px;align-items:center;margin-bottom:8px}.track-name{margin:0;font-size:11px}.caption-cell{padding-bottom:13px!important}.decision-cell{padding-top:12px!important;border-top:1px dashed var(--line)!important}.time-range{font-size:11px;white-space:normal}.review-text{font-size:14px}.decision-select{font-size:12px}.pagination{align-items:flex-start;flex-direction:column;gap:9px}.export-heading{flex-direction:column;align-items:flex-start;gap:14px}.export-actions{width:100%;flex-wrap:wrap}.export-actions>.button{flex:1;font-size:11px}.output-track{gap:10px}.workflow-notes{grid-template-columns:1fr;gap:17px;padding:25px 3px}.workflow-notes p{gap:4px}footer{font-size:9px;align-items:flex-start}footer>span:last-child{max-width:135px;text-align:right}}
 @media(max-width:400px){.app-shell{padding:0 12px}.brand{font-size:8px}.hero-copy h1{font-size:32px}.panel{padding:16px}.panel-heading h2{font-size:15px}.pill{font-size:9px}.demo-row{flex-direction:column;align-items:flex-start}.panel-heading{gap:6px}.stats-grid>div{padding:11px 8px}.stats-grid strong{font-size:22px}.stats-grid span{line-height:1.5}.review-panel>.panel-heading{flex-wrap:wrap}.file-drop .small{font-size:10px}}
+.checkpoint-panel{margin-bottom:20px}.checkpoint-panel .panel-heading{flex-wrap:wrap;align-items:center}.checkpoint-panel .plan-actions{margin-top:0}.checkpoint-panel h2{font-size:17px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -39,6 +40,11 @@
       </section>
       <div class="privacy-strip"><span aria-hidden="true">↳</span><p>Files are processed in this page. No uploads, accounts, or saved browser data. Keep your original files.</p><button id="clear-button" class="text-button" type="button">Clear workspace</button></div>
       <div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+      <section class="panel checkpoint-panel" aria-labelledby="checkpoint-title">
+        <div class="panel-heading"><h2 id="checkpoint-title">Pause here. Resume your review later.</h2><div class="plan-actions"><label class="button secondary compact file-action">Resume checkpoint<input id="checkpoint-file" type="file" accept=".json,application/json" aria-label="Resume review checkpoint JSON" aria-describedby="checkpoint-note"></label><button id="save-checkpoint" class="button secondary compact" type="button" disabled>Save review checkpoint</button></div></div>
+        <p id="checkpoint-note" class="help">A local file containing your subtitles and review choices. Nothing is saved automatically.</p>
+        <p class="help">Save after analyzing original SRT files, even while some captions still need review. Checkpoint JSON: up to 32 MiB; normal edition and per-track limits apply. Cuts-only plans remain available below.</p>
+      </section>
       <div class="setup-grid">
         <section class="panel" aria-labelledby="step-files-title">
           <div class="panel-heading"><div class="step-heading"><span class="step-number">01</span><h2 id="step-files-title">Load original subtitles</h2></div><span id="track-count" class="pill">No tracks yet</span></div>
@@ -81,9 +87,9 @@
       </section>
       <section class="workflow-notes" aria-label="Useful boundaries"><p><strong>What stays exact</strong><span>Millisecond timing, Unicode text, original cue references, and your explicit review decisions.</span></p><p><strong>What remains your judgment</strong><span>Which words belong in a surviving segment and whether the final captions fit the edited video.</span></p><p><strong>A free alternative</strong><span>Subtitle Edit offers broader subtitle and video-cutting tools. This desk focuses on shared cut plans and recorded boundary decisions.</span></p></section>
     </main>
-    <footer><span id="version-label">Subtitle Recut Desk 1.0</span><span>Local files. Clear decisions. A traceable result.</span></footer>
+    <footer><span id="version-label">Subtitle Recut Desk 1.1</span><span>Local files. Clear decisions. A traceable result.</span></footer>
   </div>
-  <script id="recut-config" type="application/json">{"edition":"trial","maxTracks":1,"maxCues":5000,"maxBytes":2097152,"maxCuts":100,"version":"1.0"}</script>
+  <script id="recut-config" type="application/json">{"edition":"trial","maxTracks":1,"maxCues":5000,"maxBytes":2097152,"maxCuts":100,"version":"1.1"}</script>
   <script type="module">
 (()=>{
 const __core = (() => {
@@ -350,7 +356,124 @@ function createReport(analysis,decisions={}) {
   };
 }
 
-return {LIMITS,parseTime,formatTime,parseSrt,normalizeCuts,analyzeTracks,resolveAnalysis,serializeSrt,serializeCutPlan,parseCutPlan,createReport};
+const CHECKPOINT_MAX_BYTES = 33554432;
+const CHECKPOINT_SOURCE_BYTES = 2097152;
+const FRAGMENT_KEYS = ['originalStartMs','originalEndMs','startMs','endMs'];
+const CUE_KEYS = ['number','startMs','endMs','text'];
+
+function checkpointLimits(config={}) {
+  return {
+    maxTracks:boundedLimit(config.maxTracks ?? LIMITS.maxTracks,LIMITS.maxTracks,'Track'),
+    maxCues:boundedLimit(config.maxCues ?? LIMITS.maxCues,LIMITS.maxCues,'Cue'),
+    maxCuts:boundedLimit(config.maxCuts ?? LIMITS.maxCuts,LIMITS.maxCuts,'Cut'),
+    maxBytes:boundedLimit(config.maxBytes ?? CHECKPOINT_SOURCE_BYTES,CHECKPOINT_SOURCE_BYTES,'Source byte'),
+  };
+}
+
+function checkpointText(value,label,maxBytes,{allowEmpty=false}={}) {
+  if (typeof value !== 'string' || (!allowEmpty && !value.trim()) || /\u0000|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u.test(value)) throw new Error(`${label} must be valid Unicode text.`);
+  if (value.length > maxBytes || new TextEncoder().encode(value).length > maxBytes) throw new Error(`${label} exceeds its ${maxBytes} bytes limit.`);
+  return value;
+}
+
+function checkpointInputs(tracks,cuts,limits) {
+  if (!Array.isArray(tracks) || !tracks.length || tracks.length > limits.maxTracks) throw new Error(`Checkpoint permits from 1 to ${limits.maxTracks} real tracks in this edition.`);
+  const originals=tracks.map((track,index)=>{
+    exactKeys(track,['id','name','cues'],`Checkpoint track ${index+1}`);
+    if (typeof track.id !== 'string' || !/^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$/.test(track.id)) throw new Error('Checkpoint track id must be a short, unambiguous identifier.');
+    checkpointText(track.name,'Source filename',4096);
+    if (!Array.isArray(track.cues) || !track.cues.length || track.cues.length > limits.maxCues) throw new Error(`Checkpoint source cue limit is ${limits.maxCues}.`);
+    for (const cue of track.cues) exactKeys(cue,CUE_KEYS,'Checkpoint source cue');
+    const cues=validateSourceCues(track.cues,limits.maxCues);
+    // Reconstruct with ORIGINAL numbers, not serializeSrt(), which renumbers output.
+    const srt=cues.map(cue=>`${cue.number}\n${formatTime(cue.startMs)} --> ${formatTime(cue.endMs)}\n${cue.text}`).join('\n\n');
+    if (new TextEncoder().encode(srt).length > limits.maxBytes) throw new Error(`Checkpoint source ${track.name} exceeds the ${limits.maxBytes} bytes limit.`);
+    const reparsed=parseSrt(srt,{maxCues:limits.maxCues});
+    if (reparsed.some((cue,i)=>CUE_KEYS.some(key=>cue[key]!==track.cues[i][key]))) throw new Error('Checkpoint source cues must contain the exact parsed SRT text and metadata.');
+    return {id:track.id,name:track.name,cues:reparsed};
+  });
+  const normalized=normalizeCuts(cuts,{maxCuts:limits.maxCuts});
+  const analysis=analyzeTracks(originals,normalized);
+  return {tracks:originals,cuts:normalized,analysis};
+}
+
+function checkpointDraft(row,draft,limits) {
+  exactKeys(draft,['fragmentIndex','text'],'Checkpoint review draft');
+  if (!Number.isInteger(draft.fragmentIndex) || !row.fragments[draft.fragmentIndex]) throw new Error('Checkpoint draft must refer to an existing retained segment.');
+  // A draft may be empty or contain unfinished blank lines; it is never a decision.
+  return {fragmentIndex:draft.fragmentIndex,text:checkpointText(draft.text,'Draft caption',limits.maxBytes,{allowEmpty:true})};
+}
+
+function checkpointReviews(analysis,decisions,drafts,limits) {
+  requireObject(decisions,'Checkpoint decisions');
+  requireObject(drafts,'Checkpoint drafts');
+  const rowMap=new Map(analysis.rows.filter(row=>row.status==='review').map(row=>[row.key,row]));
+  const validatedDecisions={}, validatedDrafts={};
+  for (const [key,value] of Object.entries(decisions)) {
+    const row=rowMap.get(key);
+    if (!row) throw new Error(`Unknown or stale checkpoint decision: ${key}.`);
+    const decision=reviewDecision(row,value);
+    if (decision.action==='keep') checkpointText(decision.text,'Reviewed caption',limits.maxBytes);
+    validatedDecisions[key]=decision;
+  }
+  for (const [key,value] of Object.entries(drafts)) {
+    const row=rowMap.get(key);
+    if (!row) throw new Error(`Unknown or stale checkpoint draft: ${key}.`);
+    const draft=checkpointDraft(row,value,limits), decision=validatedDecisions[key];
+    if (decision && (decision.action!=='keep' || decision.fragmentIndex!==draft.fragmentIndex || decision.text!==draft.text)) throw new Error('Checkpoint draft conflicts with its confirmed decision.');
+    validatedDrafts[key]=draft;
+  }
+  return {decisions:validatedDecisions,drafts:validatedDrafts,resolved:resolveAnalysis(analysis,validatedDecisions),rowMap};
+}
+
+function boundReviews(values,rowMap) {
+  return Object.fromEntries(Object.entries(values).map(([key,value])=>{
+    const row=rowMap.get(key);
+    return [key,{source:{...row.original},fragments:row.fragments.map(fragment=>({...fragment})),value}];
+  }));
+}
+
+function unbindReviews(records,rowMap,label) {
+  requireObject(records,`Checkpoint ${label}`);
+  return Object.fromEntries(Object.entries(records).map(([key,record])=>{
+    const row=rowMap.get(key);
+    if (!row) throw new Error(`Unknown or stale checkpoint ${label} reference: ${key}.`);
+    exactKeys(record,['source','fragments','value'],`Checkpoint ${label} reference`);
+    exactKeys(record.source,CUE_KEYS,'Checkpoint review source reference');
+    if (CUE_KEYS.some(field=>record.source[field]!==row.original[field])) throw new Error('Checkpoint review source has changed; its previous decision cannot be reused.');
+    if (!Array.isArray(record.fragments) || record.fragments.length!==row.fragments.length) throw new Error('Checkpoint retained segments have changed.');
+    for (const [index,fragment] of record.fragments.entries()) {
+      exactKeys(fragment,FRAGMENT_KEYS,'Checkpoint retained segment reference');
+      if (FRAGMENT_KEYS.some(field=>fragment[field]!==row.fragments[index][field])) throw new Error('Checkpoint retained segments have changed; review again.');
+    }
+    return [key,record.value];
+  }));
+}
+
+function serializeCheckpoint(workspace,config={}) {
+  requireObject(workspace,'Checkpoint workspace');
+  const limits=checkpointLimits(config);
+  const inputs=checkpointInputs(workspace.tracks,workspace.cuts,limits);
+  const reviews=checkpointReviews(inputs.analysis,workspace.decisions,workspace.drafts,limits);
+  const json=JSON.stringify({schema:'subtitle-recut-checkpoint',product:PRODUCT,version:1,timeBasis:TIME_BASIS,
+    tracks:inputs.tracks,cuts:inputs.cuts,decisions:boundReviews(reviews.decisions,reviews.rowMap),drafts:boundReviews(reviews.drafts,reviews.rowMap)},null,2)+'\n';
+  if (new TextEncoder().encode(json).length > CHECKPOINT_MAX_BYTES) throw new Error('Checkpoint exceeds the 32 MiB JSON size limit. Your current review has not changed.');
+  return json;
+}
+
+function parseCheckpoint(json,config={}) {
+  if (typeof json!=='string' || json.length > CHECKPOINT_MAX_BYTES || new TextEncoder().encode(json).length > CHECKPOINT_MAX_BYTES) throw new Error('Checkpoint JSON must fit within 32 MiB.');
+  const data=JSON.parse(json);
+  rejectDuplicateJsonKeys(json);
+  exactKeys(data,['schema','product','version','timeBasis','tracks','cuts','decisions','drafts'],'Checkpoint');
+  if (data.schema!=='subtitle-recut-checkpoint' || data.product!==PRODUCT || data.version!==1 || data.timeBasis!==TIME_BASIS) throw new Error('Unsupported checkpoint schema, product, version or original time basis.');
+  const limits=checkpointLimits(config), inputs=checkpointInputs(data.tracks,data.cuts,limits);
+  const rowMap=new Map(inputs.analysis.rows.filter(row=>row.status==='review').map(row=>[row.key,row]));
+  const reviews=checkpointReviews(inputs.analysis,unbindReviews(data.decisions,rowMap,'decisions'),unbindReviews(data.drafts,rowMap,'drafts'),limits);
+  return {...inputs,decisions:reviews.decisions,drafts:reviews.drafts,resolved:reviews.resolved};
+}
+
+return {LIMITS,parseTime,formatTime,parseSrt,normalizeCuts,analyzeTracks,resolveAnalysis,serializeSrt,serializeCutPlan,parseCutPlan,createReport,CHECKPOINT_MAX_BYTES,serializeCheckpoint,parseCheckpoint};
 })();
 const __zip = (() => {
 /** Deterministic, dependency-free, uncompressed ZIP for local browser exports. */
@@ -616,7 +739,7 @@ const demoDecisions = {
 
 return {demoTracks,demoCuts,demoDecisions};
 })();
-const { parseTime, formatTime, parseSrt, normalizeCuts, analyzeTracks, resolveAnalysis, serializeSrt, serializeCutPlan, parseCutPlan, createReport } = __core;
+const { parseTime, formatTime, parseSrt, normalizeCuts, analyzeTracks, resolveAnalysis, serializeSrt, serializeCutPlan, parseCutPlan, createReport, serializeCheckpoint, parseCheckpoint, CHECKPOINT_MAX_BYTES } = __core;
 const { safeFilename, createZip } = __zip;
 const { demoTracks, demoCuts, demoDecisions } = __demo;
 
@@ -641,7 +764,13 @@ function parseCutText(text, config = {}) {
 function deskCutsText(cuts) { return cuts.map(cut => `${formatTime(cut.startMs)} --> ${formatTime(cut.endMs)}`).join('\n'); }
 
 function createDeskState(config) {
-  const state = { tracks: [], cutsText: '', confirmed: false, analysis: null, resolved: null, decisions: {}, drafts: {}, demo: false, demoPristine: false, exampleApplied: false, loading: false, pendingKind: null, error: '', message: '', generation: 0 };
+  const state = { tracks: [], cutsText: '', confirmed: false, analysis: null, resolved: null, decisions: {}, drafts: {}, demo: false, demoPristine: false, exampleApplied: false, loading: false, checkpointLoading: false, checkpointRestored: false, pendingKind: null, error: '', message: '', generation: 0 };
+  function cancelCheckpointRead() {
+    if (state.pendingKind !== 'checkpoint') return;
+    state.generation += 1;
+    state.checkpointLoading = false;
+    state.pendingKind = null;
+  }
   function invalidate() {
     state.confirmed = false;
     state.analysis = null;
@@ -649,6 +778,7 @@ function createDeskState(config) {
     state.decisions = {};
     state.drafts = {};
     state.exampleApplied = false;
+    state.checkpointRestored = false;
     state.error = '';
     state.message = '';
   }
@@ -661,7 +791,7 @@ function createDeskState(config) {
   function refresh() { state.resolved = state.analysis ? resolveAnalysis(state.analysis, state.decisions) : null; }
   function canExport() { return Boolean(!state.loading && state.confirmed && state.analysis && state.resolved?.canExport && state.resolved.unresolvedCount === 0); }
   async function read(file, maxBytes) {
-    if (!file || file.size > maxBytes) throw new Error(`File size exceeds the ${maxBytes.toLocaleString()} bytes limit.`);
+    if (!file || !Number.isSafeInteger(file.size) || file.size < 0 || file.size > maxBytes) throw new Error(`File size exceeds the ${maxBytes.toLocaleString()} bytes limit.`);
     const buffer = await file.arrayBuffer();
     if (buffer.byteLength > maxBytes) throw new Error(`File size exceeds the ${maxBytes.toLocaleString()} bytes limit.`);
     return decodeUtf8(buffer);
@@ -671,13 +801,13 @@ function createDeskState(config) {
     clear() {
       state.generation += 1;
       invalidate();
-      Object.assign(state, { tracks: [], cutsText: '', demo: false, demoPristine: false, loading: false, pendingKind: null });
+      Object.assign(state, { tracks: [], cutsText: '', demo: false, demoPristine: false, loading: false, checkpointLoading: false, pendingKind: null });
     },
     async loadFiles(fileList) {
       const generation = ++state.generation;
       const wasDemo = state.demo;
       invalidate();
-      Object.assign(state, { tracks: [], demo: false, demoPristine: false, loading: true, pendingKind: 'files' });
+      Object.assign(state, { tracks: [], demo: false, demoPristine: false, loading: true, checkpointLoading: false, pendingKind: 'files' });
       if (wasDemo) state.cutsText = '';
       try {
         const files = Array.from(fileList);
@@ -705,9 +835,10 @@ function createDeskState(config) {
       invalidate();
       state.tracks = tracks.map(track => ({ id: track.id, name: track.name, cues: track.cues.map(cue => ({ ...cue })) }));
       state.cutsText = deskCutsText(cuts);
-      Object.assign(state, { demo: true, demoPristine: true, loading: false, pendingKind: null, message: 'Synthetic two-track example loaded. Confirm its original timeline, then review the crossing captions.' });
+      Object.assign(state, { demo: true, demoPristine: true, loading: false, checkpointLoading: false, pendingKind: null, message: 'Synthetic two-track example loaded. Confirm its original timeline, then review the crossing captions.' });
     },
     setCutsText(value) {
+      cancelCheckpointRead();
       if (state.pendingKind === 'plan') {
         state.generation += 1;
         state.loading = false;
@@ -718,10 +849,12 @@ function createDeskState(config) {
       state.demoPristine = false;
     },
     setConfirmed(value) {
+      cancelCheckpointRead();
       if (!value) invalidate();
       state.confirmed = Boolean(value);
     },
     analyze() {
+      cancelCheckpointRead();
       if (state.loading) throw new Error('Wait for the current file import to finish.');
       if (!state.confirmed) throw new Error('Acknowledge that the files and cuts use the same original timeline.');
       if (!state.tracks.length) throw new Error('Load at least one original subtitle track.');
@@ -736,6 +869,7 @@ function createDeskState(config) {
       return state.analysis;
     },
     setDecision(key, decision) {
+      cancelCheckpointRead();
       reviewRow(key);
       const next = { ...state.decisions };
       if (decision) next[key] = { ...decision };
@@ -748,6 +882,7 @@ function createDeskState(config) {
       state.exampleApplied = false;
     },
     setReviewDraft(key, fragmentIndex, text) {
+      cancelCheckpointRead();
       const row = reviewRow(key);
       if (!Number.isInteger(fragmentIndex) || !row.fragments[fragmentIndex]) throw new Error('Choose a valid retained segment.');
       delete state.decisions[key];
@@ -763,6 +898,7 @@ function createDeskState(config) {
       api.setDecision(key, { action: 'keep', fragmentIndex: draft.fragmentIndex, text: draft.text });
     },
     applyExampleDecisions(decisions) {
+      cancelCheckpointRead();
       if (!state.analysis || !state.confirmed) throw new Error('Confirm the timeline and analyze before applying worked-example review decisions.');
       if (!state.demo || !state.demoPristine) throw new Error('Worked-example decisions are available only for the unedited original synthetic example.');
       const next = Object.fromEntries(Object.entries(decisions).map(([key, decision]) => [key, { ...decision }]));
@@ -776,7 +912,7 @@ function createDeskState(config) {
     async loadPlan(file) {
       const generation = ++state.generation;
       invalidate();
-      Object.assign(state, { cutsText: '', demoPristine: false, loading: true, pendingKind: 'plan' });
+      Object.assign(state, { cutsText: '', demoPristine: false, loading: true, checkpointLoading: false, pendingKind: 'plan' });
       try {
         const cuts = parseCutPlan(await read(file, 131072));
         if (generation !== state.generation) return false;
@@ -789,6 +925,35 @@ function createDeskState(config) {
       } finally { if (generation === state.generation) { state.loading = false; state.pendingKind = null; } }
     },
     exportPlan() { return serializeCutPlan(parseCutText(state.cutsText, config)); },
+    canSaveCheckpoint() { return Boolean(state.analysis && !state.demo && !state.loading && !state.checkpointLoading); },
+    exportCheckpoint() {
+      if (state.demo) throw new Error('Checkpoints are unavailable for the built-in synthetic demo. Import original SRT files within your edition limit to use checkpoints.');
+      if (!api.canSaveCheckpoint()) throw new Error('Analyze original files before saving a review checkpoint, and wait for any file read to finish.');
+      return serializeCheckpoint({tracks:state.tracks,cuts:state.analysis.cuts,decisions:state.decisions,drafts:state.drafts},config);
+    },
+    async loadCheckpoint(file) {
+      const generation=++state.generation;
+      // A checkpoint is validated in isolation. Existing usable work survives a
+      // failed import and can still be edited while this asynchronous read runs.
+      Object.assign(state,{loading:false,checkpointLoading:true,pendingKind:'checkpoint',error:'',message:''});
+      try {
+        const restored=parseCheckpoint(await read(file,CHECKPOINT_MAX_BYTES),config);
+        if (generation!==state.generation) return false;
+        const drafts={...restored.drafts};
+        for (const [key,decision] of Object.entries(restored.decisions)) {
+          if (decision.action==='keep' && !Object.hasOwn(drafts,key)) drafts[key]={fragmentIndex:decision.fragmentIndex,text:decision.text};
+        }
+        Object.assign(state,{tracks:restored.tracks,cutsText:deskCutsText(restored.cuts),analysis:restored.analysis,resolved:restored.resolved,
+          decisions:restored.decisions,drafts,confirmed:false,demo:false,demoPristine:false,exampleApplied:false,checkpointRestored:true,
+          message:`Restored ${Object.keys(restored.decisions).length} confirmed decisions; ${restored.resolved.unresolvedCount} remain. Check the originals and cuts, then confirm the original timeline to resume.`,error:''});
+        return true;
+      } catch(error) {
+        if (generation===state.generation) state.error=`Checkpoint not imported: ${error.message} Your previous workspace is unchanged.`;
+        return false;
+      } finally {
+        if (generation===state.generation) {state.checkpointLoading=false;state.pendingKind=null;}
+      }
+    },
     canExport,
     exportData() {
       if (!canExport()) throw new Error('Finish all unresolved reviews with a confirmed original timeline before exporting.');
@@ -832,7 +997,7 @@ function mountRecutDesk() {
     setTimeout(() => URL.revokeObjectURL(url), 30000);
   }
   function renderFeedback() {
-    el('feedback').textContent = state.error || (state.loading ? 'Reading and validating files…' : state.message);
+    el('feedback').textContent = state.error || (state.checkpointLoading ? 'Reading checkpoint… Your current review is unchanged until validation succeeds.' : state.loading ? 'Reading and validating files…' : state.message);
     el('feedback').hidden = !el('feedback').textContent;
     el('feedback').className = state.error ? 'feedback error' : 'feedback';
     el('feedback').setAttribute('role', state.error ? 'alert' : 'status');
@@ -871,6 +1036,14 @@ function mountRecutDesk() {
     el('timeline-confirm').checked = state.confirmed;
     el('timeline-confirm').disabled = !state.tracks.length || !valid || state.loading;
     el('analyze-button').disabled = !state.tracks.length || !valid || !state.confirmed || state.loading;
+    if (state.checkpointRestored && state.analysis) el('analyze-button').disabled=true;
+    el('analyze-button').textContent=state.checkpointRestored && state.analysis
+      ? state.confirmed ? 'Saved review resumed below' : 'Confirm the timeline above to resume'
+      : 'Analyze cuts & review →';
+    el('save-checkpoint').disabled=!desk.canSaveCheckpoint();
+    el('checkpoint-note').textContent=state.demo
+      ? 'The built-in synthetic demo cannot be saved as a checkpoint. Import the supplied original SRT files to practice: one track in Free, up to ten in Full.'
+      : 'Includes original subtitles, filenames, cuts, confirmed decisions and unfinished drafts. Keep this file private as needed. Import replaces this workspace only after validation; the original timeline must be confirmed again. No automatic saving.';
   }
   function renderSummary() {
     const summary = state.analysis?.summary;
@@ -931,6 +1104,7 @@ function mountRecutDesk() {
     const draft = state.drafts[row.key];
     const choice = node('select', 'decision-select');
     choice.id = `choice-${row.key}`;
+    choice.disabled=!state.confirmed || state.loading;
     choice.setAttribute('aria-label', `Decision for ${row.trackId}, original caption ${row.original.number}`);
     choice.append(option('', 'Choose a review decision…'), option('drop', 'Drop this whole caption'));
     row.fragments.forEach((fragment, index) => choice.append(option(`keep:${index}`, `Keep segment ${index + 1} · ${formatTime(fragment.startMs)} → ${formatTime(fragment.endMs)}`)));
@@ -952,8 +1126,9 @@ function mountRecutDesk() {
       text.rows = 3;
       text.value = draft.text;
       text.spellcheck = false;
+      text.disabled=!state.confirmed || state.loading;
       const confirm = button(decision?.action === 'keep' ? 'Retained text confirmed' : 'Confirm retained text', 'button secondary compact', () => run(() => desk.confirmReview(row.key)));
-      confirm.disabled = decision?.action === 'keep';
+      confirm.disabled = decision?.action === 'keep' || !state.confirmed || state.loading;
       text.addEventListener('input', () => {
         desk.setReviewDraft(row.key, draft.fragmentIndex, text.value);
         badge.textContent = 'Text needs confirmation';
@@ -1022,6 +1197,16 @@ function mountRecutDesk() {
     await pending;
     render();
   });
+  el('checkpoint-file').addEventListener('change', async event => {
+    const file=event.target.files[0];
+    if (!file) return;
+    event.target.value='';
+    const pending=desk.loadCheckpoint(file);
+    render();
+    if (await pending) resetView();
+    render();
+  });
+  el('save-checkpoint').addEventListener('click',()=>run(()=>download('subtitle-recut-review-checkpoint.json',desk.exportCheckpoint(),'application/json;charset=utf-8')));
   el('demo-button').addEventListener('click', () => run(() => { resetView(); desk.loadDemo(demoTracks, demoCuts); }));
   el('clear-button').addEventListener('click', () => run(() => { resetView(); desk.clear(); }));
   el('cuts-input').addEventListener('input', event => { desk.setCutsText(event.target.value); resetView(); render(); });
