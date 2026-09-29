@@ -1,0 +1,16 @@
+{
+  "schema": "subtitle-recut-plan",
+  "product": "Subtitle Recut Desk",
+  "version": 1,
+  "timeBasis": "original-ms-half-open",
+  "cuts": [
+    {
+      "startMs": 4000,
+      "endMs": 7000
+    },
+    {
+      "startMs": 12000,
+      "endMs": 14000
+    }
+  ]
+}

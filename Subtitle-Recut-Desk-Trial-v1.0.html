@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src 'none'; media-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; form-action 'none'; base-uri 'none'">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Apply original-timeline video deletions to SRT subtitle tracks, review crossing captions, and export a traceable result. Everything stays in your browser.">
+  <title>Subtitle Recut Desk</title>
+  <style>:root{color-scheme:light;--ink:#182e35;--muted:#52666c;--teal:#12685f;--teal-deep:#0b4c46;--teal-soft:#eaf5f1;--paper:#f5f7f5;--line:#d7e1dc;--amber:#83531a;--amber-soft:#fff4df;--white:#fff;--radius:16px;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.55}button,input,textarea,select{font:inherit}button,a,input,textarea,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.46}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,.file-action:focus-within,.file-pick:focus-within{outline:3px solid #66bcae;outline-offset:3px}[hidden]{display:none!important}h1,h2,h3,p{margin:0}h2{font-size:19px;letter-spacing:-.45px;line-height:1.3}h3{font-size:20px;letter-spacing:-.4px;line-height:1.35}.small{font-size:12px}.muted{color:var(--muted)}.app-shell{max-width:1320px;padding:0 48px;margin:auto}.app-header{display:flex;justify-content:space-between;gap:24px;align-items:center;height:88px;border-bottom:1px solid var(--line)}.brand{display:flex;gap:12px;align-items:center;font-size:11px;font-weight:750;letter-spacing:1.3px}.brand-icon{font-size:20px;letter-spacing:-1px;color:var(--teal)}.header-meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}.local-dot{width:6px;height:6px;border-radius:100%;background:#488673}.header-divider{margin:0 10px;color:#8b9d98}.edition-label{color:var(--ink);font-weight:600}.hero{display:grid;grid-template-columns:minmax(0,1fr) 295px;gap:60px;align-items:center;padding:48px 0 35px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:1.5px;color:var(--teal);margin-bottom:11px}h1{font-size:clamp(32px,3.6vw,47px);letter-spacing:-1.8px;line-height:1.15;font-weight:740}.title-dot{color:var(--teal)}.hero-description{font-size:19px;line-height:1.5;margin-top:17px;letter-spacing:-.25px}.edition-description{color:var(--muted);font-size:12px;margin-top:14px}.hero-aside{border-left:1px solid var(--line);padding-left:28px}.hero-aside strong{font-size:14px}.hero-aside p{color:var(--muted);font-size:12px;line-height:1.65;margin-top:7px}.timeline-illustration{height:28px;display:flex;gap:5px;align-items:center;margin-bottom:16px}.timeline-illustration span{height:17px;flex:1;border-radius:3px;background:#a7d4c6}.timeline-illustration span:first-child{background:var(--teal);flex:1.4}.timeline-illustration i{height:22px;width:12px;border-left:1px dashed #77968a;border-right:1px dashed #77968a;background:repeating-linear-gradient(135deg,transparent 0,transparent 3px,#dbe5df 3px,#dbe5df 5px)}.privacy-strip{display:flex;align-items:center;gap:12px;padding:14px 0 21px;font-size:12px;color:var(--muted)}.privacy-strip>span{color:var(--teal);font-size:23px;line-height:1}.privacy-strip p{flex:1}.text-button{border:0;background:none;padding:2px 0;color:var(--teal);font-size:12px;font-weight:700;white-space:nowrap;text-underline-offset:3px}.text-button:hover{text-decoration:underline}.setup-grid{display:grid;grid-template-columns:1fr 1.12fr;gap:20px;align-items:stretch}.panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:25px;min-width:0;box-shadow:0 2px 3px #163c2410}.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:15px}.step-heading{display:flex;gap:12px;align-items:center;min-width:0}.step-number{display:grid;place-items:center;flex:none;width:31px;height:31px;background:var(--teal-soft);border-radius:9px;color:var(--teal);font-size:11px;font-weight:800;font-variant-numeric:tabular-nums}.pill{display:inline-flex;align-items:center;white-space:nowrap;flex:none;border:1px solid var(--line);border-radius:30px;color:var(--muted);background:#fafcfb;padding:4px 9px;font-size:10px;font-weight:650}.pill.success{color:var(--teal);background:var(--teal-soft);border-color:#bedbce}.section-description{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.65}.file-drop{min-height:155px;margin-top:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:18px;border:1px dashed #a2b9ad;border-radius:10px;background:#fafcfb;text-align:center}.file-symbol{display:grid;place-items:center;width:36px;height:42px;border:1px solid #9dbcae;border-radius:5px;background:var(--white);font-size:10px;font-weight:750;color:var(--teal)}.file-pick{position:relative;font-weight:700;color:var(--teal);cursor:pointer;font-size:13px;text-decoration:underline;text-underline-offset:4px}.file-pick input,.file-action input{position:absolute;inset:0;opacity:0;width:100%;height:100%;cursor:pointer}.file-action{position:relative;overflow:hidden}.empty-note{margin:23px 0;font-size:12px;color:#6d7d78;text-align:center}.track-list{padding:0;list-style:none;margin:16px 0 0}.track-item{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #e8eeea}.track-label{display:flex;min-width:0;gap:9px;align-items:center}.file-mark{font-size:9px;font-weight:750;color:var(--teal);border:1px solid #c6dacf;background:var(--teal-soft);padding:3px 4px;border-radius:4px;flex:none}.filename{font-size:12px;overflow-wrap:anywhere}.track-item>.small{flex:none}.demo-row{border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:20px;padding-top:20px}.track-list:not(:empty)+.demo-row{border-top:0;margin-top:3px}.note{font-size:12px;padding:12px 14px;border:1px solid #cfddd4;border-radius:9px;background:#f1f7f3;margin-top:16px;color:#40594d}.warning{background:var(--amber-soft);border-color:#eddbc0;color:#684c24}.field-label{display:block;margin:19px 0 8px;font-size:11px;font-weight:650}.field-label .muted{font-weight:400}textarea{resize:vertical;display:block;width:100%;border:1px solid #c5d2cb;border-radius:8px;padding:12px;color:var(--ink);background:#fdfefd;line-height:1.6}.cuts-input{min-height:121px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px}.cuts-input::placeholder{color:#83938c}.help{color:var(--muted);font-size:11px;line-height:1.6;margin-top:8px}.help.invalid{color:#a03931}.plan-actions{display:flex;align-items:center;gap:9px;margin-top:14px;flex-wrap:wrap}.button{display:inline-flex;justify-content:center;align-items:center;gap:12px;min-height:41px;border:1px solid transparent;border-radius:7px;font-size:12px;font-weight:650;padding:9px 15px;text-decoration:none;line-height:1.5}.button.primary{background:var(--teal);color:var(--white);border-color:var(--teal)}.button.primary:hover:not(:disabled){background:var(--teal-deep);border-color:var(--teal-deep)}.button.secondary{color:var(--ink);background:var(--white);border-color:#c5d2cb}.button.secondary:hover:not(:disabled){background:#f2f7f4;border-color:#9bbca9}.button.compact{min-height:34px;font-size:11px;padding:6px 10px}.confirmation{display:flex;gap:10px;align-items:flex-start;padding:16px 0 15px;margin-top:15px;border-top:1px solid var(--line);font-size:11px;line-height:1.6;color:var(--muted)}.confirmation input{width:16px;height:16px;margin:2px 0 0;accent-color:var(--teal);flex:none}.confirmation strong{color:var(--ink)}.analyze-button{width:100%;justify-content:space-between}.reset-note{text-align:center;font-size:10px}.review-panel{margin-top:20px;scroll-margin-top:20px}.review-empty{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:43px 20px 35px;margin-top:20px;border-top:1px solid #e7eee9}.empty-review-icon{color:#749187;font-family:ui-monospace,Consolas,monospace;font-size:24px;letter-spacing:3px;margin-bottom:14px}.review-empty h3{font-size:17px;font-weight:650}.review-empty p{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.75}.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:24px;border:1px solid var(--line);border-radius:10px;overflow:hidden}.stats-grid>div{padding:16px 20px;border-right:1px solid var(--line);display:flex;flex-direction:column}.stats-grid>div:last-child{border:0}.stats-grid strong{font-size:27px;line-height:1.3;letter-spacing:-1px;font-variant-numeric:tabular-nums}.stats-grid span{font-size:11px;color:var(--muted);margin-top:4px}.stats-grid .review-stat{background:var(--amber-soft)}.review-stat strong{color:var(--amber)}.example-actions{display:flex;gap:22px;justify-content:space-between;align-items:center;padding:15px 17px;border-radius:9px;background:var(--teal-soft);border:1px solid #cce0d5;margin-top:17px}.example-actions strong{font-size:12px}.example-actions .help{margin-top:3px}.example-actions>button{flex:none}.review-toolbar{display:flex;justify-content:space-between;gap:16px;align-items:end;margin:25px 0 14px}.filter-fields{display:flex;gap:14px}.filter-fields label{font-size:10px;font-weight:650;color:var(--muted);display:flex;flex-direction:column;gap:5px}.filter-fields select{max-width:250px}.filter-fields select,.decision-select{background:var(--white);border:1px solid #c5d2cb;color:var(--ink);border-radius:6px;padding:8px 30px 8px 10px;font-size:12px;min-height:36px}.review-toolbar>strong{color:var(--teal);padding-bottom:8px}.table-wrap{border:1px solid var(--line);border-radius:9px;overflow:hidden}.review-table{width:100%;border-collapse:collapse;table-layout:fixed}.review-table thead{background:#f3f6f4;color:var(--muted);text-align:left;font-size:10px}.review-table thead th{padding:11px 14px;font-weight:650}.review-table thead th:first-child{width:15%}.review-table thead th:nth-child(2){width:37%}.review-table td,.review-table tbody th{vertical-align:top;text-align:left;border-top:1px solid var(--line);padding:17px 14px}.review-table tbody th{font-weight:400}.identity-cell strong{font-size:12px}.track-name{display:block;color:var(--muted);font-size:10px;line-height:1.5;margin-top:5px;overflow-wrap:anywhere}.time-range{font-size:10px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;white-space:nowrap;font-variant-numeric:tabular-nums;letter-spacing:-.2px}.caption-text{font-size:12px;line-height:1.65;margin-top:8px;white-space:pre-wrap;overflow-wrap:anywhere}.status-tag{display:inline-flex;align-items:center;padding:3px 7px;border-radius:4px;font-size:10px;font-weight:650;margin-bottom:10px;background:#edf1ee;color:#4a6457}.status-tag.review{color:var(--amber);background:var(--amber-soft)}.status-tag.removed{color:#746a60;background:#f2efec}.status-tag.shifted,.status-tag.confirmed{background:var(--teal-soft);color:var(--teal)}.decision-select{width:100%;display:block;font-size:11px;max-width:100%}.output-time{display:block}.segment-note{font-size:10px}.text-label{font-size:10px;font-weight:650;display:block;margin:12px 0 5px}.review-text{font-size:12px;min-height:76px;padding:9px}.review-text+.button{margin-top:9px}.no-rows{font-size:12px;color:var(--muted);text-align:center;padding:32px 18px}.pagination{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:13px}.pagination>div{display:flex;gap:8px}.export-area{border-top:1px solid var(--line);margin-top:29px;padding-top:25px}.export-heading{display:flex;align-items:center;gap:20px;justify-content:space-between}.export-heading .eyebrow{margin-bottom:7px}.export-actions{display:flex;gap:9px}.export-note{font-size:12px;color:var(--muted);margin-top:13px}.export-note.ready{color:var(--teal)}.output-tracks{margin:16px 0}.output-track{display:flex;gap:20px;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid #e7eee9}.output-track>div{display:flex;flex-direction:column;gap:3px}.output-track>.button{flex:none}.workflow-notes{display:grid;grid-template-columns:repeat(3,1fr);gap:35px;padding:30px 4px 34px}.workflow-notes p{display:flex;flex-direction:column;gap:7px;font-size:11px;color:var(--muted);line-height:1.7}.workflow-notes strong{color:var(--ink);font-size:12px;font-weight:650}footer{display:flex;justify-content:space-between;gap:20px;padding:23px 0 29px;border-top:1px solid var(--line);color:var(--muted);font-size:10px}.feedback{border-radius:9px;border:1px solid #bdd9ce;background:var(--teal-soft);color:var(--teal-deep);padding:12px 16px;margin-bottom:16px;font-size:12px}.feedback.error{color:#8b302e;border-color:#e5b8b1;background:#fff1ee}.skip-link{position:fixed;top:-100px;left:20px;z-index:10;background:var(--teal);color:white;padding:12px}.skip-link:focus{top:10px}
+@media(min-width:1100px){.setup-grid>.panel{padding:27px}.panel-heading h2{font-size:18px}}
+@media(max-width:1050px){.app-shell{padding:0 28px}.hero{gap:35px;grid-template-columns:minmax(0,1fr) 250px}.panel{padding:20px}.panel-heading{align-items:flex-start;flex-wrap:wrap;gap:10px}.panel-heading h2{font-size:17px}.demo-row{align-items:flex-start;flex-direction:column;gap:6px}.setup-grid{gap:16px;grid-template-columns:1fr 1.1fr}.time-range{white-space:normal;line-height:1.8}.example-actions{align-items:flex-start}.example-actions>button{max-width:220px}.header-meta{font-size:10px}}
+@media(max-width:760px){.app-shell{padding:0 19px}.app-header{height:74px;gap:12px}.brand{font-size:9px;letter-spacing:.7px;gap:7px}.brand-icon{font-size:18px}.header-meta{font-size:10px;gap:5px}.header-divider,.local-dot{display:none}.header-meta{font-size:0}.edition-label{font-size:10px}.hero{display:block;padding:32px 0 19px}.hero-copy h1{font-size:37px;letter-spacing:-1.5px}.hero-description{font-size:17px;margin-top:13px}.hero-aside{display:none}.privacy-strip{align-items:flex-start;gap:8px;padding-bottom:20px;flex-wrap:wrap}.privacy-strip p{font-size:11px;flex-basis:85%}.privacy-strip>button{margin-left:23px}.setup-grid{grid-template-columns:1fr;gap:16px}.panel{padding:20px}.panel-heading{align-items:center;flex-wrap:nowrap}.panel-heading h2{font-size:17px}.panel-heading .pill{font-size:9px;padding:3px 7px}.step-heading{gap:9px}.step-number{width:27px;height:27px}.file-drop{min-height:140px}.demo-row{flex-direction:row;align-items:center}.review-panel{margin-top:16px}.stats-grid>div{padding:13px 11px}.stats-grid strong{font-size:25px}.stats-grid span{font-size:9px}.example-actions{flex-direction:column;gap:11px}.example-actions>button{max-width:none}.review-toolbar{align-items:flex-start;flex-direction:column;gap:10px}.review-toolbar>strong{padding:0;font-size:11px}.filter-fields{width:100%;gap:10px}.filter-fields label{min-width:0;flex:1}.filter-fields select{width:100%;max-width:none;font-size:11px}.review-table thead{display:none}.review-table,.review-table tbody,.review-table tr,.review-table tbody th,.review-table td{display:block;width:100%}.review-table tr{padding:16px 13px;border-top:1px solid var(--line)}.review-table tr:first-child{border-top:0}.review-table tbody th,.review-table td{border:0;padding:0}.identity-cell{display:flex!important;gap:10px;align-items:center;margin-bottom:8px}.track-name{margin:0;font-size:11px}.caption-cell{padding-bottom:13px!important}.decision-cell{padding-top:12px!important;border-top:1px dashed var(--line)!important}.time-range{font-size:11px;white-space:normal}.review-text{font-size:14px}.decision-select{font-size:12px}.pagination{align-items:flex-start;flex-direction:column;gap:9px}.export-heading{flex-direction:column;align-items:flex-start;gap:14px}.export-actions{width:100%;flex-wrap:wrap}.export-actions>.button{flex:1;font-size:11px}.output-track{gap:10px}.workflow-notes{grid-template-columns:1fr;gap:17px;padding:25px 3px}.workflow-notes p{gap:4px}footer{font-size:9px;align-items:flex-start}footer>span:last-child{max-width:135px;text-align:right}}
+@media(max-width:400px){.app-shell{padding:0 12px}.brand{font-size:8px}.hero-copy h1{font-size:32px}.panel{padding:16px}.panel-heading h2{font-size:15px}.pill{font-size:9px}.demo-row{flex-direction:column;align-items:flex-start}.panel-heading{gap:6px}.stats-grid>div{padding:11px 8px}.stats-grid strong{font-size:22px}.stats-grid span{line-height:1.5}.review-panel>.panel-heading{flex-wrap:wrap}.file-drop .small{font-size:10px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand"><span class="brand-icon" aria-hidden="true">[ : ]</span><span>SMALL WORKFLOW TOOLS</span></div>
+      <div class="header-meta"><span class="local-dot" aria-hidden="true"></span>Local processing<span class="header-divider">/</span><span id="edition-badge" class="edition-label">Free edition · 1 real track</span></div>
+    </header>
+    <main id="workspace">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">A CAREFUL FINISH FOR A SHORTER CUT</p>
+          <h1 id="page-title">Subtitle Recut Desk<span class="title-dot">.</span></h1>
+          <p class="hero-description">One deletion plan. Consistent subtitle timing.<br>Every crossing caption gets a human decision.</p>
+          <p id="edition-description" class="edition-description">A complete one-track workflow. The full edition adds up to 10 real tracks per plan.</p>
+        </div>
+        <aside class="hero-aside" aria-label="Scope">
+          <div class="timeline-illustration" aria-hidden="true"><span></span><i></i><span></span><i></i><span></span></div>
+          <strong>You supply the cuts.</strong>
+          <p>Use existing SRT files and deletion times from the original video. This desk retimes captions; it does not cut video, listen to audio, or infer word timing.</p>
+        </aside>
+      </section>
+      <div class="privacy-strip"><span aria-hidden="true">↳</span><p>Files are processed in this page. No uploads, accounts, or saved browser data. Keep your original files.</p><button id="clear-button" class="text-button" type="button">Clear workspace</button></div>
+      <div id="feedback" class="feedback" role="status" aria-live="polite" hidden></div>
+      <div class="setup-grid">
+        <section class="panel" aria-labelledby="step-files-title">
+          <div class="panel-heading"><div class="step-heading"><span class="step-number">01</span><h2 id="step-files-title">Load original subtitles</h2></div><span id="track-count" class="pill">No tracks yet</span></div>
+          <p class="section-description">Choose every language track for this edit together. A new selection replaces the current tracks.</p>
+          <div class="file-drop">
+            <span class="file-symbol" aria-hidden="true">SRT</span>
+            <label class="file-pick"><span>Choose subtitle files</span><input id="track-files" type="file" accept=".srt" multiple aria-describedby="import-limit"></label>
+            <span id="import-limit" class="small muted">UTF-8 .srt · 1 real track · up to 5,000 captions and 2 MiB per track</span>
+          </div>
+          <p id="track-empty" class="empty-note">Your track names and caption counts will appear here.</p>
+          <ul id="track-list" class="track-list" aria-label="Loaded subtitle tracks"></ul>
+          <div class="demo-row"><span class="muted small">Want to see the whole workflow?</span><button id="demo-button" class="text-button" type="button">Load synthetic example <span aria-hidden="true">↗</span></button></div>
+          <p id="demo-note" class="note synthetic" hidden></p>
+        </section>
+        <section class="panel" aria-labelledby="step-cuts-title">
+          <div class="panel-heading"><div class="step-heading"><span class="step-number">02</span><h2 id="step-cuts-title">Enter the deleted intervals</h2></div><span class="pill">Original time</span></div>
+          <p class="section-description">Copy deletion start and end times from the <strong>original video</strong>, before any cuts. Use up to 100 intervals.</p>
+          <label for="cuts-input" class="field-label">Original start <span aria-hidden="true">→</span> Original end <span class="muted">· one interval per line</span></label>
+          <textarea id="cuts-input" class="cuts-input" rows="5" spellcheck="false" placeholder="00:00:04,000 --> 00:00:07,000&#10;00:00:12,000 --> 00:00:14,000" aria-describedby="cuts-preview"></textarea>
+          <p id="cuts-preview" class="help">Enter one interval per line. Use HH:MM:SS,mmm for both times.</p>
+          <div class="plan-actions"><label class="button secondary compact file-action">Import cut plan<input id="plan-file" type="file" accept=".json,application/json" aria-label="Import cut plan JSON"></label><button id="save-plan" class="button secondary compact" type="button" disabled>Save cut plan</button><span class="small muted">JSON · intervals only</span></div>
+          <label class="confirmation"><input id="timeline-confirm" type="checkbox" disabled><span>I confirm these subtitles and cuts use the <strong>same original video timeline</strong>. These are not already-retimed subtitle files.</span></label>
+          <button id="analyze-button" class="button primary analyze-button" type="button" disabled>Analyze cuts &amp; review <span aria-hidden="true">→</span></button>
+          <p class="help reset-note">Changing files or cuts clears the review and requires fresh confirmation.</p>
+        </section>
+      </div>
+      <section id="step-review" class="panel review-panel" aria-labelledby="step-review-title">
+        <div class="panel-heading"><div class="step-heading"><span class="step-number">03</span><h2 id="step-review-title">Review the boundaries. Export.</h2></div><span id="review-count" class="pill">Waiting for a plan</span></div>
+        <p class="section-description">Fully deleted captions are removed. Others shift with the cut. For each caption crossing a cut, keep one surviving segment and confirm its text, or explicitly drop it.</p>
+        <div id="review-empty" class="review-empty"><span class="empty-review-icon" aria-hidden="true">[ … ]</span><h3>The careful part starts here.</h3><p>Load your tracks, enter the cuts, and confirm the original timeline.<br>You’ll see exactly which captions need a decision.</p></div>
+        <div id="review-section" hidden>
+          <div class="stats-grid" aria-label="Analysis summary"><div><strong id="stats-input">—</strong><span>source captions</span></div><div><strong id="stats-shifted">—</strong><span>shifted automatically</span></div><div><strong id="stats-removed">—</strong><span>removed by cuts</span></div><div class="review-stat"><strong id="stats-review">—</strong><span>boundary reviews</span></div></div>
+          <p id="overlap-note" class="note warning" hidden></p>
+          <div id="example-actions" class="example-actions" hidden><div><strong>Synthetic worked example</strong><p id="example-result" class="help"></p></div><button id="apply-example" class="button secondary compact" type="button">Apply the worked example decisions</button></div>
+          <div class="review-toolbar"><div class="filter-fields"><label>Show<select id="review-filter"><option value="unresolved">Needs a decision</option><option value="all">All captions</option></select></label><label>Track<select id="track-filter"><option value="all">All tracks</option></select></label></div><strong id="global-unresolved" class="small" aria-live="polite"></strong></div>
+          <div class="table-wrap"><table class="review-table"><thead><tr><th scope="col">Source cue</th><th scope="col">Original time &amp; text</th><th scope="col">Result / explicit review</th></tr></thead><tbody id="review-body"></tbody></table><p id="no-review-rows" class="no-rows" hidden></p></div>
+          <div class="pagination"><span id="page-label" class="small muted"></span><div><button id="previous-page" class="button secondary compact" type="button">← Previous</button><button id="next-page" class="button secondary compact" type="button">Next →</button></div></div>
+          <div class="export-area"><div class="export-heading"><div><p class="eyebrow">YOUR REVIEWED OUTPUT</p><h3>Ready for the edited video</h3></div><div class="export-actions"><button id="download-report" class="button secondary" type="button" disabled>Download report</button><button id="download-zip" class="button primary" type="button" disabled>Download all as ZIP <span aria-hidden="true">↓</span></button></div></div><p id="export-lock-note" class="export-note"></p><div id="output-tracks" class="output-tracks"></div><p class="help">ZIP includes every track, including empty SRTs, plus the JSON review report. Output cues are ordered by their new start time; original cue references remain in the report. The report records timing and decisions; verify wording against the edited video.</p></div>
+        </div>
+      </section>
+      <section class="workflow-notes" aria-label="Useful boundaries"><p><strong>What stays exact</strong><span>Millisecond timing, Unicode text, original cue references, and your explicit review decisions.</span></p><p><strong>What remains your judgment</strong><span>Which words belong in a surviving segment and whether the final captions fit the edited video.</span></p><p><strong>A free alternative</strong><span>Subtitle Edit offers broader subtitle and video-cutting tools. This desk focuses on shared cut plans and recorded boundary decisions.</span></p></section>
+    </main>
+    <footer><span id="version-label">Subtitle Recut Desk 1.0</span><span>Local files. Clear decisions. A traceable result.</span></footer>
+  </div>
+  <script id="recut-config" type="application/json">{"edition":"trial","maxTracks":1,"maxCues":5000,"maxBytes":2097152,"maxCuts":100,"version":"1.0"}</script>
+  <script type="module">
+(()=>{
+const __core = (() => {
+/** Deterministic original-timeline SRT recutting. Times are integer milliseconds. */
+const LIMITS = Object.freeze({maxTracks:10,maxCues:5000,maxCuts:100,maxTimeMs:359999999});
+const PRODUCT = 'Subtitle Recut Desk';
+const TIME_BASIS = 'original-ms-half-open';
+const TIMESTAMP = /^\d{2}:\d{2}:\d{2},\d{3}$/;
+
+function requireMs(value, label = 'Time') {
+  if (!Number.isInteger(value) || value < 0 || value > LIMITS.maxTimeMs) throw new Error(`${label} must be integer milliseconds from 0 through 99:59:59,999.`);
+  return value;
+}
+
+function requireObject(value, label) {
+  if (!value || typeof value !== 'object' || Array.isArray(value) || ![Object.prototype,null].includes(Object.getPrototypeOf(value))) throw new Error(`${label} must be a plain object.`);
+}
+
+function exactKeys(value, keys, label) {
+  requireObject(value,label);
+  const own = Object.keys(value);
+  if (own.length !== keys.length || own.some(key => !keys.includes(key))) throw new Error(`${label} contains missing or unsupported fields.`);
+}
+
+function boundedLimit(value, maximum, label) {
+  if (!Number.isInteger(value) || value < 1 || value > maximum) throw new Error(`${label} limit must be from 1 to ${maximum}.`);
+  return value;
+}
+
+function captionText(value) {
+  if (typeof value !== 'string' || !value.trim() || /\u0000|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u.test(value)) throw new Error('Caption text must be nonempty valid Unicode text.');
+  const normalized = value.replace(/\r\n?/g,'\n');
+  if (/\n[ \t]*\n|^\n|\n$/.test(normalized)) throw new Error('Caption text cannot contain blank lines or begin/end with a newline.');
+  const lines=normalized.split('\n');
+  for (let line=0;line<lines.length-1;line++) {
+    if (/^[1-9]\d*$/.test(lines[line]) && /^\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}$/.test(lines[line+1])) throw new Error('Ambiguous caption text contains an apparent cue block without a blank separator. Review the text explicitly before continuing.');
+  }
+  return normalized;
+}
+
+function validateCue(cue, index) {
+  requireObject(cue,`Cue ${index+1}`);
+  if (!Number.isSafeInteger(cue.number) || cue.number < 1) throw new Error(`Cue ${index+1} number must be a positive safe integer.`);
+  requireMs(cue.startMs,`Cue ${cue.number} start`);
+  requireMs(cue.endMs,`Cue ${cue.number} end`);
+  if (cue.startMs >= cue.endMs) throw new Error(`Cue ${cue.number} must have a positive duration.`);
+  return {number:cue.number,startMs:cue.startMs,endMs:cue.endMs,text:captionText(cue.text)};
+}
+
+function validateSourceCues(cues, maximum = LIMITS.maxCues) {
+  if (!Array.isArray(cues) || cues.length === 0) throw new Error('A source track must contain at least one cue.');
+  if (cues.length > maximum) throw new Error(`Cue limit exceeded: maximum ${maximum}.`);
+  const seen = new Set();
+  let previousStart = -1;
+  return cues.map((cue,index) => {
+    const valid = validateCue(cue,index);
+    if (seen.has(valid.number)) throw new Error(`Duplicate cue number ${valid.number}; source numbers must be unique.`);
+    if (valid.startMs < previousStart) throw new Error(`Cue ${valid.number} starts before the preceding source cue.`);
+    seen.add(valid.number);
+    previousStart = valid.startMs;
+    return valid;
+  });
+}
+
+function parseTime(value) {
+  if (typeof value !== 'string' || value.length !== 12 || !TIMESTAMP.test(value)) throw new Error('Use a strict HH:MM:SS,mmm timestamp.');
+  const hours = Number(value.slice(0,2)), minutes = Number(value.slice(3,5)), seconds = Number(value.slice(6,8)), milliseconds = Number(value.slice(9,12));
+  if (minutes > 59 || seconds > 59) throw new Error('Timestamp minutes and seconds must be 00 through 59.');
+  return hours*3600000 + minutes*60000 + seconds*1000 + milliseconds;
+}
+
+function formatTime(value) {
+  requireMs(value);
+  const pad = (number,width) => String(number).padStart(width,'0');
+  return `${pad(Math.floor(value/3600000),2)}:${pad(Math.floor(value/60000)%60,2)}:${pad(Math.floor(value/1000)%60,2)},${pad(value%1000,3)}`;
+}
+
+function parseSrt(text, {maxCues=LIMITS.maxCues} = {}) {
+  boundedLimit(maxCues,LIMITS.maxCues,'Cue');
+  if (typeof text !== 'string') throw new Error('SRT input must be text decoded as UTF-8.');
+  const normalized = text.replace(/^\uFEFF/,'').replace(/\r\n?/g,'\n').replace(/^(?:[ \t]*\n)+/,'').replace(/(?:\n[ \t]*)+$/,'');
+  if (!normalized.trim()) throw new Error('The source SRT contains no cues.');
+  const blocks = normalized.split(/\n[ \t]*\n(?:[ \t]*\n)*/);
+  if (blocks.length > maxCues) throw new Error(`Cue limit exceeded: maximum ${maxCues}.`);
+  const cues = blocks.map((block,index) => {
+    const lines = block.split('\n');
+    if (lines.length < 3 || !/^[1-9]\d*$/.test(lines[0])) throw new Error(`Malformed SRT block ${index+1}: expected a positive cue number, timing line and caption.`);
+    const timing = /^(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})$/.exec(lines[1]);
+    if (!timing) throw new Error(`Malformed timing in SRT block ${index+1}; expected HH:MM:SS,mmm --> HH:MM:SS,mmm.`);
+    return {number:Number(lines[0]),startMs:parseTime(timing[1]),endMs:parseTime(timing[2]),text:lines.slice(2).join('\n')};
+  });
+  return validateSourceCues(cues,maxCues);
+}
+
+function normalizeCuts(raw, {maxCuts=LIMITS.maxCuts} = {}) {
+  boundedLimit(maxCuts,LIMITS.maxCuts,'Cut');
+  if (!Array.isArray(raw) || raw.length === 0) throw new Error('Add at least one original-time cut.');
+  if (raw.length > maxCuts) throw new Error(`Cut limit exceeded: maximum ${maxCuts}.`);
+  const sorted = raw.map((cut,index) => {
+    exactKeys(cut,['startMs','endMs'],`Cut ${index+1}`);
+    requireMs(cut.startMs,`Cut ${index+1} start`);
+    requireMs(cut.endMs,`Cut ${index+1} end`);
+    if (cut.startMs >= cut.endMs) throw new Error(`Cut ${index+1} must have a positive duration.`);
+    return {startMs:cut.startMs,endMs:cut.endMs};
+  }).sort((a,b) => a.startMs-b.startMs || a.endMs-b.endMs);
+  const merged=[];
+  for (const cut of sorted) {
+    const last=merged.at(-1);
+    if (last && cut.startMs <= last.endMs) last.endMs=Math.max(last.endMs,cut.endMs);
+    else merged.push(cut);
+  }
+  return merged;
+}
+
+// Endpoints inside cuts are never used for retained fragments. At the two cut
+// boundaries this continuous mapping produces the same exact output instant.
+function retime(time,cuts) {
+  let deleted=0;
+  for (const cut of cuts) {
+    if (cut.startMs >= time) break;
+    deleted += Math.min(time,cut.endMs)-cut.startMs;
+  }
+  return time-deleted;
+}
+
+function survivingFragments(cue,cuts) {
+  const pieces=[];
+  let cursor=cue.startMs;
+  for (const cut of cuts) {
+    if (cut.endMs <= cursor) continue;
+    if (cut.startMs >= cue.endMs) break;
+    if (cut.startMs > cursor) pieces.push([cursor,cut.startMs]);
+    cursor=Math.max(cursor,cut.endMs);
+    if (cursor >= cue.endMs) break;
+  }
+  if (cursor < cue.endMs) pieces.push([cursor,cue.endMs]);
+  return pieces.map(([start,end]) => ({originalStartMs:start,originalEndMs:end,startMs:retime(start,cuts),endMs:retime(end,cuts)}));
+}
+
+function analyzeTracks(tracks,rawCuts) {
+  if (!Array.isArray(tracks) || !tracks.length || tracks.length > LIMITS.maxTracks) throw new Error(`Use from 1 to ${LIMITS.maxTracks} tracks.`);
+  const cuts=normalizeCuts(rawCuts), ids=new Set(), rows=[];
+  const summary={tracks:tracks.length,inputCues:0,unchanged:0,shifted:0,removed:0,review:0,removedMs:cuts.reduce((sum,c)=>sum+c.endMs-c.startMs,0)};
+  const analyzed=tracks.map(track => {
+    requireObject(track,'Track');
+    if (typeof track.id !== 'string' || !track.id.trim() || typeof track.name !== 'string' || !track.name.trim()) throw new Error('Every track needs an id and source filename.');
+    if (ids.has(track.id)) throw new Error('Track ids must be unique; duplicate id found.');
+    ids.add(track.id);
+    const cues=validateSourceCues(track.cues), overlaps=[], trackRows=[];
+    let farthestEnd=-1, farthestIndex=-1;
+    for (const [sourceIndex,original] of cues.entries()) {
+      if (original.startMs < farthestEnd) overlaps.push({sourceIndex,previousSourceIndex:farthestIndex});
+      if (original.endMs > farthestEnd) { farthestEnd=original.endMs; farthestIndex=sourceIndex; }
+      const fragments=survivingFragments(original,cuts);
+      const untouched=fragments.length===1 && fragments[0].originalStartMs===original.startMs && fragments[0].originalEndMs===original.endMs;
+      const status=!fragments.length ? 'removed' : !untouched ? 'review' : fragments[0].startMs===original.startMs ? 'unchanged' : 'shifted';
+      const row={key:`${track.id}:${sourceIndex}`,trackId:track.id,sourceIndex,original,status,fragments};
+      trackRows.push(row);
+      rows.push(row);
+      summary[status]++;
+      summary.inputCues++;
+    }
+    return {id:track.id,name:track.name,cues,rows:trackRows,overlaps};
+  });
+  return {tracks:analyzed,cuts,rows,summary};
+}
+
+function reviewDecision(row,decision) {
+  requireObject(decision,'Review decision');
+  if (decision.action==='drop') { exactKeys(decision,['action'],'Drop decision'); return {action:'drop'}; }
+  if (decision.action!=='keep') throw new Error('Review decision must explicitly keep one fragment or drop the cue.');
+  exactKeys(decision,['action','fragmentIndex','text'],'Keep decision');
+  if (!Number.isInteger(decision.fragmentIndex) || decision.fragmentIndex < 0 || decision.fragmentIndex >= row.fragments.length) throw new Error('Choose one existing retained fragment for review.');
+  return {action:'keep',fragmentIndex:decision.fragmentIndex,text:captionText(decision.text)};
+}
+
+function resolveAnalysis(analysis,decisions={}) {
+  requireObject(decisions,'Review decisions');
+  const rowMap=new Map(analysis.rows.map(row=>[row.key,row]));
+  for (const key of Object.keys(decisions)) {
+    if (!rowMap.has(key)) throw new Error(`Unknown or stale review row: ${key}.`);
+    if (rowMap.get(key).status!=='review') throw new Error('Only boundary-crossing rows accept review decisions.');
+  }
+  const rows=[], summary={...analysis.summary,outputCues:0,reviewKept:0,reviewDropped:0,unresolvedCount:0};
+  const tracks=analysis.tracks.map(track=>{
+    const cues=[];
+    for (const row of track.rows) {
+      let decision=null, output=null, unresolved=false, fragment=null, text=row.original.text;
+      if (row.status==='review') {
+        if (!Object.hasOwn(decisions,row.key)) { unresolved=true; summary.unresolvedCount++; }
+        else {
+          decision=reviewDecision(row,decisions[row.key]);
+          if (decision.action==='keep') { fragment=row.fragments[decision.fragmentIndex]; text=decision.text; summary.reviewKept++; }
+          else summary.reviewDropped++;
+        }
+      } else if (row.status!=='removed') fragment=row.fragments[0];
+      if (fragment) {
+        output={number:cues.length+1,startMs:fragment.startMs,endMs:fragment.endMs,text,sourceNumber:row.original.number,sourceIndex:row.sourceIndex};
+        cues.push(output);
+        summary.outputCues++;
+      }
+      rows.push({...row,decision,output,unresolved});
+    }
+    // A late retained piece from an overlapping source cue can overtake a later
+    // source cue. Keep report rows in source order but make exported SRT valid.
+    cues.sort((a,b)=>a.startMs-b.startMs || a.sourceIndex-b.sourceIndex);
+    cues.forEach((cue,index)=>{ cue.number=index+1; });
+    return {id:track.id,name:track.name,cues};
+  });
+  return {tracks,rows,summary,unresolvedCount:summary.unresolvedCount,canExport:summary.unresolvedCount===0};
+}
+
+function serializeSrt(cues) {
+  if (!Array.isArray(cues) || cues.length > LIMITS.maxCues) throw new Error('Output must be an array within the cue limit.');
+  // Resolution establishes export order; serialization preserves that order.
+  const blocks=cues.map((cue,index) => {
+    const valid=validateCue(cue,index);
+    return `${index+1}\n${formatTime(valid.startMs)} --> ${formatTime(valid.endMs)}\n${valid.text}`;
+  });
+  return blocks.length ? `${blocks.join('\n\n')}\n` : '';
+}
+
+function serializeCutPlan(cuts) {
+  return JSON.stringify({schema:'subtitle-recut-plan',product:PRODUCT,version:1,timeBasis:TIME_BASIS,cuts:normalizeCuts(cuts)},null,2)+'\n';
+}
+
+// JSON.parse validates syntax first. This small second pass checks property
+// identity, which JSON.parse would otherwise overwrite (including escaped keys).
+function rejectDuplicateJsonKeys(json) {
+  const tokens=json.match(/"(?:\\[\s\S]|[^"\\])*"|[{}\[\]:,]/g) || [];
+  const scopes=[];
+  for (let index=0;index<tokens.length;index++) {
+    const token=tokens[index];
+    if (token==='{') scopes.push(new Set());
+    else if (token==='[') scopes.push(null);
+    else if (token==='}' || token===']') scopes.pop();
+    else if (token[0]==='"' && tokens[index+1]===':') {
+      const key=JSON.parse(token), keys=scopes.at(-1);
+      if (keys.has(key)) throw new Error(`Duplicate JSON property: ${key}.`);
+      keys.add(key);
+    }
+  }
+}
+
+function parseCutPlan(json) {
+  if (typeof json !== 'string' || json.length > 65536) throw new Error('Cut-plan JSON must be text within 64 KiB.');
+  const plan=JSON.parse(json);
+  rejectDuplicateJsonKeys(json);
+  exactKeys(plan,['schema','product','version','timeBasis','cuts'],'Cut plan');
+  if (plan.schema!=='subtitle-recut-plan' || plan.product!==PRODUCT || plan.version!==1 || plan.timeBasis!==TIME_BASIS) throw new Error('Unsupported cut-plan schema, product, version or original time basis.');
+  return normalizeCuts(plan.cuts);
+}
+
+function createReport(analysis,decisions={}) {
+  const resolved=resolveAnalysis(analysis,decisions);
+  if (!resolved.canExport) throw new Error(`Resolve all ${resolved.unresolvedCount} boundary reviews before exporting the report.`);
+  const rowsByTrack=new Map(analysis.tracks.map(t=>[t.id,[]]));
+  for (const row of resolved.rows) rowsByTrack.get(row.trackId).push(row);
+  return {
+    schema:'subtitle-recut-report',product:PRODUCT,version:1,timeBasis:TIME_BASIS,
+    note:'Review evidence only. Retained text was chosen by the reviewer; word-level timing and correctness are not inferred.',
+    cuts:analysis.cuts.map(cut=>({...cut})),summary:{...resolved.summary},
+    tracks:resolved.tracks.map((track,index)=>({id:track.id,name:track.name,inputCues:analysis.tracks[index].cues.length,outputCues:track.cues.length,emptyOutput:track.cues.length===0,overlaps:analysis.tracks[index].overlaps.map(overlap=>({...overlap})),rows:rowsByTrack.get(track.id)}))
+  };
+}
+
+return {LIMITS,parseTime,formatTime,parseSrt,normalizeCuts,analyzeTracks,resolveAnalysis,serializeSrt,serializeCutPlan,parseCutPlan,createReport};
+})();
+const __zip = (() => {
+/** Deterministic, dependency-free, uncompressed ZIP for local browser exports. */
+const ZIP_ENCODER = new TextEncoder();
+const ZIP_UNSAFE = /[\\/<>:"|?*\u0000-\u001f\u007f\u061c\u200e\u200f\u202a-\u202e\u2066-\u2069]/u;
+const ZIP_BAD_UNICODE = /[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?<![\uD800-\uDBFF])[\uDC00-\uDFFF]/u;
+const ZIP_RESERVED = /^(?:con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i;
+const CRC_TABLE = Uint32Array.from({length:256},(_,index)=>{
+  let value=index;
+  for (let bit=0;bit<8;bit++) value=(value&1) ? 0xedb88320^(value>>>1) : value>>>1;
+  return value>>>0;
+});
+
+function crc32(bytes) {
+  if (!(bytes instanceof Uint8Array)) throw new Error('CRC32 input must be bytes.');
+  let crc=0xffffffff;
+  for (const byte of bytes) crc=CRC_TABLE[(crc^byte)&0xff]^(crc>>>8);
+  return (crc^0xffffffff)>>>0;
+}
+
+function safeFilename(name,index,extension='srt') {
+  if (typeof name!=='string' || !Number.isInteger(index) || index<0 || index>=65535 || typeof extension!=='string' || !/^[a-zA-Z0-9]{1,10}$/.test(extension)) throw new Error('Use a source filename, a nonnegative entry index and a simple extension.');
+  let base=name.split(/[\\/]/).at(-1).normalize('NFC');
+  const dot=base.lastIndexOf('.');
+  if (dot>=0) base=base.slice(0,dot);
+  base=Array.from(base).map(character=>ZIP_UNSAFE.test(character) || ZIP_BAD_UNICODE.test(character) ? '-' : character).join('').replace(/^[ .-]+|[ .-]+$/g,'');
+  const characters=Array.from(base || 'track');
+  while (ZIP_ENCODER.encode(characters.join('')).length>180) characters.pop();
+  return `${String(index+1).padStart(2,'0')}-${characters.join('')}.${extension.toLowerCase()}`;
+}
+
+function zipMemberName(name) {
+  if (typeof name!=='string' || !name || ZIP_UNSAFE.test(name) || ZIP_BAD_UNICODE.test(name) || /^\.|[ .]$/.test(name) || ZIP_RESERVED.test(name)) throw new Error('ZIP member name must be a safe filename without paths.');
+  const bytes=ZIP_ENCODER.encode(name);
+  if (bytes.length>240) throw new Error('ZIP member name exceeds the 240-byte filename limit.');
+  return bytes;
+}
+
+function createZip(entries) {
+  if (!Array.isArray(entries) || !entries.length || entries.length>65535) throw new Error('ZIP requires from 1 through 65535 files.');
+  const seen=new Set();
+  let localSize=0,centralSize=0;
+  const files=entries.map(entry=>{
+    if (!entry || typeof entry!=='object') throw new Error('Invalid ZIP entry.');
+    const name=zipMemberName(entry.name), canonical=entry.name.normalize('NFC').toLowerCase();
+    if (seen.has(canonical)) throw new Error('Duplicate ZIP member name.');
+    seen.add(canonical);
+    const data=typeof entry.data==='string' ? ZIP_ENCODER.encode(entry.data) : entry.data;
+    if (!(data instanceof Uint8Array)) throw new Error('ZIP data must be UTF-8 text or Uint8Array bytes.');
+    const file={name,data,crc:crc32(data),offset:localSize};
+    localSize+=30+name.length+data.length;
+    centralSize+=46+name.length;
+    if (localSize+centralSize+22>0xffffffff) throw new Error('ZIP export exceeds the classic ZIP size limit.');
+    return file;
+  });
+  const output=new Uint8Array(localSize+centralSize+22), view=new DataView(output.buffer);
+  const u16=(offset,value)=>view.setUint16(offset,value,true);
+  const u32=(offset,value)=>view.setUint32(offset,value,true);
+  let cursor=0;
+  for (const file of files) {
+    u32(cursor,0x04034b50);
+    u16(cursor+4,20);               // Version needed: ZIP 2.0.
+    u16(cursor+6,0x0800);           // Explicit UTF-8 filename flag.
+    u16(cursor+8,0);                // Stored, no compression.
+    u16(cursor+10,0);               // Fixed 00:00:00, 1980-01-01.
+    u16(cursor+12,0x0021);
+    u32(cursor+14,file.crc);
+    u32(cursor+18,file.data.length);
+    u32(cursor+22,file.data.length);
+    u16(cursor+26,file.name.length);
+    u16(cursor+28,0);
+    output.set(file.name,cursor+30);
+    output.set(file.data,cursor+30+file.name.length);
+    cursor+=30+file.name.length+file.data.length;
+  }
+  for (const file of files) {
+    u32(cursor,0x02014b50);
+    u16(cursor+4,20);
+    u16(cursor+6,20);
+    u16(cursor+8,0x0800);
+    u16(cursor+10,0);
+    u16(cursor+12,0);
+    u16(cursor+14,0x0021);
+    u32(cursor+16,file.crc);
+    u32(cursor+20,file.data.length);
+    u32(cursor+24,file.data.length);
+    u16(cursor+28,file.name.length);
+    // Extra, comment, disk, attributes are zero in the initialized buffer.
+    u32(cursor+42,file.offset);
+    output.set(file.name,cursor+46);
+    cursor+=46+file.name.length;
+  }
+  u32(cursor,0x06054b50);
+  u16(cursor+8,files.length);
+  u16(cursor+10,files.length);
+  u32(cursor+12,centralSize);
+  u32(cursor+16,localSize);
+  return output;
+}
+
+return {crc32,safeFilename,createZip};
+})();
+const __demo = (() => {
+// Authored synthetic worked example. Serialized from the independent research fixture.
+const demoTracks = [
+  {
+    "id": "en",
+    "name": "synthetic-en.srt",
+    "cues": [
+      {
+        "number": 1,
+        "startMs": 500,
+        "endMs": 1800,
+        "text": "Welcome, café ☕.\nSynthetic EN track."
+      },
+      {
+        "number": 2,
+        "startMs": 3000,
+        "endMs": 5000,
+        "text": "Keep this opening phrase."
+      },
+      {
+        "number": 3,
+        "startMs": 4200,
+        "endMs": 5800,
+        "text": "Delete this whole aside."
+      },
+      {
+        "number": 4,
+        "startMs": 5800,
+        "endMs": 6500,
+        "text": "Across the touching-cut seam."
+      },
+      {
+        "number": 5,
+        "startMs": 6500,
+        "endMs": 7800,
+        "text": "After the edit — déjà vu."
+      },
+      {
+        "number": 6,
+        "startMs": 8000,
+        "endMs": 10000,
+        "text": "Résumé: two tracks, one plan."
+      },
+      {
+        "number": 7,
+        "startMs": 11000,
+        "endMs": 15000,
+        "text": "Left clause.\nRight clause."
+      },
+      {
+        "number": 8,
+        "startMs": 12500,
+        "endMs": 13800,
+        "text": "Remove the second aside."
+      },
+      {
+        "number": 9,
+        "startMs": 14000,
+        "endMs": 17000,
+        "text": "Fin. 日本語も保持。"
+      }
+    ]
+  },
+  {
+    "id": "ko",
+    "name": "synthetic-ko.srt",
+    "cues": [
+      {
+        "number": 1,
+        "startMs": 700,
+        "endMs": 2000,
+        "text": "안녕하세요 ☕.\n합성 한국어 트랙입니다."
+      },
+      {
+        "number": 2,
+        "startMs": 3500,
+        "endMs": 4000,
+        "text": "삭제 시작점에서 정확히 끝납니다."
+      },
+      {
+        "number": 3,
+        "startMs": 4000,
+        "endMs": 7000,
+        "text": "맞닿은 두 구간에서 전부 삭제됩니다."
+      },
+      {
+        "number": 4,
+        "startMs": 6200,
+        "endMs": 7500,
+        "text": "잘린 뒤의 인사입니다."
+      },
+      {
+        "number": 5,
+        "startMs": 7800,
+        "endMs": 11000,
+        "text": "서로 다른 자막 경계\n한 개의 원본 시간 계획"
+      },
+      {
+        "number": 6,
+        "startMs": 11500,
+        "endMs": 12500,
+        "text": "이 앞부분을 남깁니다."
+      },
+      {
+        "number": 7,
+        "startMs": 13000,
+        "endMs": 14500,
+        "text": "검토자가 문장 전체 삭제를 선택합니다."
+      },
+      {
+        "number": 8,
+        "startMs": 15000,
+        "endMs": 18000,
+        "text": "마지막 줄 — café / 完了"
+      }
+    ]
+  }
+];
+const demoCuts = [
+  {
+    "startMs": 4000,
+    "endMs": 6000
+  },
+  {
+    "startMs": 6000,
+    "endMs": 7000
+  },
+  {
+    "startMs": 12000,
+    "endMs": 14000
+  }
+];
+const demoDecisions = {
+  "en:1": {
+    "action": "keep",
+    "fragmentIndex": 0,
+    "text": "Keep this opening phrase."
+  },
+  "en:4": {
+    "action": "keep",
+    "fragmentIndex": 0,
+    "text": "After the edit — déjà vu."
+  },
+  "en:6": {
+    "action": "drop"
+  },
+  "ko:3": {
+    "action": "keep",
+    "fragmentIndex": 0,
+    "text": "잘린 뒤의 인사입니다."
+  },
+  "ko:5": {
+    "action": "keep",
+    "fragmentIndex": 0,
+    "text": "이 앞부분을 남깁니다."
+  },
+  "ko:6": {
+    "action": "drop"
+  }
+};
+
+return {demoTracks,demoCuts,demoDecisions};
+})();
+const { parseTime, formatTime, parseSrt, normalizeCuts, analyzeTracks, resolveAnalysis, serializeSrt, serializeCutPlan, parseCutPlan, createReport } = __core;
+const { safeFilename, createZip } = __zip;
+const { demoTracks, demoCuts, demoDecisions } = __demo;
+
+function decodeUtf8(buffer) {
+  try { return new TextDecoder('utf-8', { fatal: true }).decode(buffer); }
+  catch { throw new Error('This file is not valid UTF-8. Save a UTF-8 copy and try again.'); }
+}
+
+function parseCutText(text, config = {}) {
+  const lines = text.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+  if (!lines.length) throw new Error('Add at least one original-time cut interval.');
+  if (lines.length > (config.maxCuts ?? 100)) throw new Error(`Use at most ${config.maxCuts ?? 100} cut intervals.`);
+  const cuts = lines.map((line, index) => {
+    const match = line.match(/^(\d{2}:\d{2}:\d{2},\d{3})\s+-->\s+(\d{2}:\d{2}:\d{2},\d{3})$/);
+    if (!match) throw new Error(`Cut line ${index + 1}: use HH:MM:SS,mmm --> HH:MM:SS,mmm.`);
+    try { return { startMs: parseTime(match[1]), endMs: parseTime(match[2]) }; }
+    catch (error) { throw new Error(`Cut line ${index + 1}: ${error.message}`); }
+  });
+  return normalizeCuts(cuts, { maxCuts: config.maxCuts ?? 100 });
+}
+
+function deskCutsText(cuts) { return cuts.map(cut => `${formatTime(cut.startMs)} --> ${formatTime(cut.endMs)}`).join('\n'); }
+
+function createDeskState(config) {
+  const state = { tracks: [], cutsText: '', confirmed: false, analysis: null, resolved: null, decisions: {}, drafts: {}, demo: false, demoPristine: false, exampleApplied: false, loading: false, pendingKind: null, error: '', message: '', generation: 0 };
+  function invalidate() {
+    state.confirmed = false;
+    state.analysis = null;
+    state.resolved = null;
+    state.decisions = {};
+    state.drafts = {};
+    state.exampleApplied = false;
+    state.error = '';
+    state.message = '';
+  }
+  function reviewRow(key) {
+    if (!state.confirmed || !state.analysis || state.loading) throw new Error('Confirm the original timeline and analyze the cuts before reviewing.');
+    const row = state.analysis.rows.find(row => row.key === key);
+    if (!row || row.status !== 'review') throw new Error('This caption does not require a boundary decision.');
+    return row;
+  }
+  function refresh() { state.resolved = state.analysis ? resolveAnalysis(state.analysis, state.decisions) : null; }
+  function canExport() { return Boolean(!state.loading && state.confirmed && state.analysis && state.resolved?.canExport && state.resolved.unresolvedCount === 0); }
+  async function read(file, maxBytes) {
+    if (!file || file.size > maxBytes) throw new Error(`File size exceeds the ${maxBytes.toLocaleString()} bytes limit.`);
+    const buffer = await file.arrayBuffer();
+    if (buffer.byteLength > maxBytes) throw new Error(`File size exceeds the ${maxBytes.toLocaleString()} bytes limit.`);
+    return decodeUtf8(buffer);
+  }
+  const api = {
+    state,
+    clear() {
+      state.generation += 1;
+      invalidate();
+      Object.assign(state, { tracks: [], cutsText: '', demo: false, demoPristine: false, loading: false, pendingKind: null });
+    },
+    async loadFiles(fileList) {
+      const generation = ++state.generation;
+      const wasDemo = state.demo;
+      invalidate();
+      Object.assign(state, { tracks: [], demo: false, demoPristine: false, loading: true, pendingKind: 'files' });
+      if (wasDemo) state.cutsText = '';
+      try {
+        const files = Array.from(fileList);
+        if (!files.length) throw new Error('Choose at least one UTF-8 SRT file.');
+        if (files.length > config.maxTracks) throw new Error(`This edition accepts ${config.maxTracks} real subtitle track${config.maxTracks === 1 ? '' : 's'} at a time. Your previous tracks have been cleared.`);
+        const tracks = await Promise.all(files.map(async (file, index) => {
+          const name = file.name || `track-${index + 1}.srt`;
+          try {
+            const text = await read(file, config.maxBytes);
+            const cues = parseSrt(text, { maxCues: config.maxCues });
+            return { id: `track-${index + 1}`, name, cues };
+          } catch (error) { throw new Error(`${name}: ${error.message}`); }
+        }));
+        if (generation !== state.generation) return false;
+        state.tracks = tracks;
+        state.message = `Loaded ${tracks.length} original subtitle track${tracks.length === 1 ? '' : 's'}. Add or check the cuts, then confirm the original timeline.`;
+        return true;
+      } catch (error) {
+        if (generation === state.generation) state.error = error.message;
+        return false;
+      } finally { if (generation === state.generation) { state.loading = false; state.pendingKind = null; } }
+    },
+    loadDemo(tracks, cuts) {
+      state.generation += 1;
+      invalidate();
+      state.tracks = tracks.map(track => ({ id: track.id, name: track.name, cues: track.cues.map(cue => ({ ...cue })) }));
+      state.cutsText = deskCutsText(cuts);
+      Object.assign(state, { demo: true, demoPristine: true, loading: false, pendingKind: null, message: 'Synthetic two-track example loaded. Confirm its original timeline, then review the crossing captions.' });
+    },
+    setCutsText(value) {
+      if (state.pendingKind === 'plan') {
+        state.generation += 1;
+        state.loading = false;
+        state.pendingKind = null;
+      }
+      invalidate();
+      state.cutsText = value;
+      state.demoPristine = false;
+    },
+    setConfirmed(value) {
+      if (!value) invalidate();
+      state.confirmed = Boolean(value);
+    },
+    analyze() {
+      if (state.loading) throw new Error('Wait for the current file import to finish.');
+      if (!state.confirmed) throw new Error('Acknowledge that the files and cuts use the same original timeline.');
+      if (!state.tracks.length) throw new Error('Load at least one original subtitle track.');
+      const cuts = parseCutText(state.cutsText, config);
+      state.analysis = analyzeTracks(state.tracks, cuts);
+      state.decisions = {};
+      state.drafts = {};
+      state.exampleApplied = false;
+      state.error = '';
+      state.message = '';
+      refresh();
+      return state.analysis;
+    },
+    setDecision(key, decision) {
+      reviewRow(key);
+      const next = { ...state.decisions };
+      if (decision) next[key] = { ...decision };
+      else delete next[key];
+      const resolved = resolveAnalysis(state.analysis, next);
+      state.decisions = next;
+      state.resolved = resolved;
+      state.error = '';
+      if (!decision || decision.action === 'drop') delete state.drafts[key];
+      state.exampleApplied = false;
+    },
+    setReviewDraft(key, fragmentIndex, text) {
+      const row = reviewRow(key);
+      if (!Number.isInteger(fragmentIndex) || !row.fragments[fragmentIndex]) throw new Error('Choose a valid retained segment.');
+      delete state.decisions[key];
+      state.drafts[key] = { fragmentIndex, text };
+      state.exampleApplied = false;
+      state.error = '';
+      refresh();
+    },
+    confirmReview(key) {
+      reviewRow(key);
+      const draft = state.drafts[key];
+      if (!draft || !draft.text.trim()) throw new Error('Choose a retained segment and enter the text to keep.');
+      api.setDecision(key, { action: 'keep', fragmentIndex: draft.fragmentIndex, text: draft.text });
+    },
+    applyExampleDecisions(decisions) {
+      if (!state.analysis || !state.confirmed) throw new Error('Confirm the timeline and analyze before applying worked-example review decisions.');
+      if (!state.demo || !state.demoPristine) throw new Error('Worked-example decisions are available only for the unedited original synthetic example.');
+      const next = Object.fromEntries(Object.entries(decisions).map(([key, decision]) => [key, { ...decision }]));
+      const resolved = resolveAnalysis(state.analysis, next);
+      state.decisions = next;
+      state.resolved = resolved;
+      state.drafts = {};
+      for (const [key, decision] of Object.entries(next)) if (decision.action === 'keep') state.drafts[key] = { fragmentIndex: decision.fragmentIndex, text: decision.text };
+      state.exampleApplied = true;
+    },
+    async loadPlan(file) {
+      const generation = ++state.generation;
+      invalidate();
+      Object.assign(state, { cutsText: '', demoPristine: false, loading: true, pendingKind: 'plan' });
+      try {
+        const cuts = parseCutPlan(await read(file, 131072));
+        if (generation !== state.generation) return false;
+        state.cutsText = deskCutsText(normalizeCuts(cuts, { maxCuts: config.maxCuts }));
+        state.message = 'Cut plan imported. Check the original-time intervals and confirm the timeline again.';
+        return true;
+      } catch (error) {
+        if (generation === state.generation) state.error = error.message;
+        return false;
+      } finally { if (generation === state.generation) { state.loading = false; state.pendingKind = null; } }
+    },
+    exportPlan() { return serializeCutPlan(parseCutText(state.cutsText, config)); },
+    canExport,
+    exportData() {
+      if (!canExport()) throw new Error('Finish all unresolved reviews with a confirmed original timeline before exporting.');
+      return { tracks: state.resolved.tracks, report: createReport(state.analysis, state.decisions) };
+    },
+  };
+  return api;
+}
+
+function mountRecutDesk() {
+  const config = JSON.parse(document.getElementById('recut-config').textContent);
+  const desk = createDeskState(config);
+  const state = desk.state;
+  const el = id => document.getElementById(id);
+  const view = { page: 0, filter: 'unresolved', track: 'all' };
+  function node(tag, className, text) {
+    const result = document.createElement(tag);
+    if (className) result.className = className;
+    if (text !== undefined) result.textContent = String(text);
+    return result;
+  }
+  function button(text, className, action) {
+    const result = node('button', className, text);
+    result.type = 'button';
+    result.addEventListener('click', action);
+    return result;
+  }
+  function option(value, text) { const result = node('option', '', text); result.value = value; return result; }
+  function resetView() { view.page = 0; view.track = 'all'; view.filter = 'unresolved'; }
+  function fail(error) { state.error = error.message || String(error); renderFeedback(); }
+  function run(action) { try { action(); render(); } catch (error) { fail(error); } }
+  function download(name, data, type) {
+    const blob = new Blob([data], { type });
+    const url = URL.createObjectURL(blob);
+    const link = node('a');
+    link.href = url;
+    link.download = name;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
+  }
+  function renderFeedback() {
+    el('feedback').textContent = state.error || (state.loading ? 'Reading and validating files…' : state.message);
+    el('feedback').hidden = !el('feedback').textContent;
+    el('feedback').className = state.error ? 'feedback error' : 'feedback';
+    el('feedback').setAttribute('role', state.error ? 'alert' : 'status');
+  }
+  function renderTracks() {
+    const list = el('track-list');
+    list.replaceChildren();
+    for (const track of state.tracks) {
+      const item = node('li', 'track-item');
+      const label = node('div', 'track-label');
+      label.append(node('span', 'file-mark', 'SRT'), node('strong', 'filename', track.name));
+      item.append(label, node('span', 'muted small', `${track.cues.length.toLocaleString()} captions`));
+      list.append(item);
+    }
+    el('track-empty').hidden = state.tracks.length > 0;
+    el('track-count').textContent = state.tracks.length ? `${state.tracks.length} loaded` : 'No tracks yet';
+    el('demo-note').hidden = !state.demo;
+    el('demo-note').textContent = state.demoPristine
+      ? 'Synthetic demonstration · 2 authored tracks, 17 captions, 3 cuts. This example can demonstrate two tracks in the free edition. Real imports follow your edition limit. No review decisions have been inferred.'
+      : 'Synthetic tracks · the cut plan has been edited. Worked-example decisions and exact expected totals are unavailable. Replacing files clears the entire example.';
+  }
+  function renderCuts() {
+    if (el('cuts-input').value !== state.cutsText) el('cuts-input').value = state.cutsText;
+    let valid = false;
+    let preview = 'Enter one interval per line. The intervals below refer to time in the original video.';
+    try {
+      const cuts = parseCutText(state.cutsText, config);
+      const removedMs = cuts.reduce((total, cut) => total + cut.endMs - cut.startMs, 0);
+      const count = state.cutsText.split(/\r?\n/).filter(line => line.trim()).length;
+      preview = `${count} entered interval${count === 1 ? '' : 's'} → ${cuts.length} merged cut${cuts.length === 1 ? '' : 's'} · ${(removedMs / 1000).toLocaleString(undefined, { maximumFractionDigits: 3 })} seconds removed. Touching and overlapping cuts are combined.`;
+      valid = true;
+    } catch (error) { if (state.cutsText.trim()) preview = error.message; }
+    el('cuts-preview').textContent = preview;
+    el('cuts-preview').className = `help ${state.cutsText.trim() && !valid ? 'invalid' : ''}`;
+    el('save-plan').disabled = !valid || state.loading;
+    el('timeline-confirm').checked = state.confirmed;
+    el('timeline-confirm').disabled = !state.tracks.length || !valid || state.loading;
+    el('analyze-button').disabled = !state.tracks.length || !valid || !state.confirmed || state.loading;
+  }
+  function renderSummary() {
+    const summary = state.analysis?.summary;
+    const unresolved = state.resolved?.unresolvedCount ?? 0;
+    el('review-section').hidden = !summary;
+    el('review-empty').hidden = Boolean(summary);
+    el('review-count').textContent = summary ? `${unresolved} unresolved` : 'Waiting for a plan';
+    el('review-count').className = `pill ${summary && unresolved === 0 ? 'success' : ''}`;
+    el('stats-input').textContent = summary?.inputCues?.toLocaleString() ?? '—';
+    el('stats-shifted').textContent = summary?.shifted?.toLocaleString() ?? '—';
+    el('stats-removed').textContent = summary?.removed?.toLocaleString() ?? '—';
+    el('stats-review').textContent = summary?.review?.toLocaleString() ?? '—';
+    el('global-unresolved').textContent = summary ? `${unresolved} unresolved across all ${summary.tracks} track${summary.tracks === 1 ? '' : 's'}` : '';
+    el('export-lock-note').textContent = desk.canExport()
+      ? `Ready to export ${state.resolved.summary.outputCues.toLocaleString()} captions across ${state.tracks.length} track${state.tracks.length === 1 ? '' : 's'}. Check the result against your edited video.`
+      : 'SRT, report, and ZIP downloads unlock when every boundary decision is confirmed across all tracks.';
+    el('export-lock-note').className = `export-note ${desk.canExport() ? 'ready' : ''}`;
+    el('download-zip').disabled = !desk.canExport();
+    el('download-report').disabled = !desk.canExport();
+    el('example-actions').hidden = !(state.demo && state.demoPristine && summary);
+    el('apply-example').disabled = state.exampleApplied;
+    el('example-result').textContent = state.exampleApplied
+      ? 'Worked example applied: 4 retained-text decisions + 2 explicit drops → 11 output captions. These are authored editorial choices, not word timing.'
+      : 'Optional: apply the six authored decisions for this synthetic example, or review each caption yourself.';
+    el('overlap-note').hidden = !state.analysis?.tracks.some(track => track.overlaps?.length);
+    el('overlap-note').textContent = 'Some source captions overlap in time. This desk does not repair overlapping captions. Output is ordered by its new start times; inspect it in your video editor.';
+    const outputs = el('output-tracks');
+    outputs.replaceChildren();
+    if (summary) for (const [index, track] of state.tracks.entries()) {
+      const count = state.resolved?.tracks.find(item => item.id === track.id)?.cues.length ?? 0;
+      const item = node('div', 'output-track');
+      const detail = node('div');
+      detail.append(node('strong', 'filename', track.name), node('span', 'muted small', desk.canExport() ? `${count} output captions${count === 0 ? ' · empty SRT included' : ''}` : 'Waiting for all review decisions'));
+      const exportButton = button('Download SRT', 'button secondary compact', () => run(() => {
+        const exported = desk.exportData();
+        download(safeFilename(track.name, index, 'srt'), serializeSrt(exported.tracks.find(item => item.id === track.id).cues), 'application/x-subrip;charset=utf-8');
+      }));
+      exportButton.disabled = !desk.canExport();
+      item.append(detail, exportButton);
+      outputs.append(item);
+    }
+  }
+  function captionCell(row) {
+    const cell = node('td', 'caption-cell');
+    cell.append(node('code', 'time-range', `${formatTime(row.original.startMs)} → ${formatTime(row.original.endMs)}`), node('p', 'caption-text', row.original.text));
+    return cell;
+  }
+  function decisionCell(row) {
+    const cell = node('td', 'decision-cell');
+    if (row.status !== 'review') {
+      const labels = { unchanged: 'Unchanged', shifted: 'Shifted', removed: 'Removed by cut' };
+      cell.append(node('span', `status-tag ${row.status}`, labels[row.status]));
+      if (row.fragments[0]) cell.append(node('code', 'time-range output-time', `${formatTime(row.fragments[0].startMs)} → ${formatTime(row.fragments[0].endMs)}`));
+      else cell.append(node('p', 'help', 'The cut removes the entire caption.'));
+      return cell;
+    }
+    const decision = state.decisions[row.key];
+    const draft = state.drafts[row.key];
+    const choice = node('select', 'decision-select');
+    choice.id = `choice-${row.key}`;
+    choice.setAttribute('aria-label', `Decision for ${row.trackId}, original caption ${row.original.number}`);
+    choice.append(option('', 'Choose a review decision…'), option('drop', 'Drop this whole caption'));
+    row.fragments.forEach((fragment, index) => choice.append(option(`keep:${index}`, `Keep segment ${index + 1} · ${formatTime(fragment.startMs)} → ${formatTime(fragment.endMs)}`)));
+    choice.value = decision?.action === 'drop' ? 'drop' : draft ? `keep:${draft.fragmentIndex}` : '';
+    choice.addEventListener('change', () => run(() => {
+      if (choice.value === 'drop') desk.setDecision(row.key, { action: 'drop' });
+      else if (!choice.value) desk.setDecision(row.key, null);
+      else desk.setReviewDraft(row.key, Number(choice.value.split(':')[1]), draft?.text ?? row.original.text);
+    }));
+    const badge = node('span', `status-tag ${decision ? 'confirmed' : 'review'}`, decision ? decision.action === 'drop' ? 'Explicitly dropped' : 'Retained text confirmed' : 'Needs a decision');
+    cell.append(badge, choice);
+    if (draft) {
+      const fragment = row.fragments[draft.fragmentIndex];
+      cell.append(node('p', 'help segment-note', `Selected original segment: ${formatTime(fragment.originalStartMs)} → ${formatTime(fragment.originalEndMs)}. Keep only text that belongs in this segment.`));
+      const label = node('label', 'text-label', 'Text to retain');
+      label.htmlFor = `text-${row.key}`;
+      const text = node('textarea', 'review-text');
+      text.id = `text-${row.key}`;
+      text.rows = 3;
+      text.value = draft.text;
+      text.spellcheck = false;
+      const confirm = button(decision?.action === 'keep' ? 'Retained text confirmed' : 'Confirm retained text', 'button secondary compact', () => run(() => desk.confirmReview(row.key)));
+      confirm.disabled = decision?.action === 'keep';
+      text.addEventListener('input', () => {
+        desk.setReviewDraft(row.key, draft.fragmentIndex, text.value);
+        badge.textContent = 'Text needs confirmation';
+        badge.className = 'status-tag review';
+        confirm.disabled = !text.value.trim();
+        confirm.textContent = 'Confirm retained text';
+        renderSummary();
+      });
+      cell.append(label, text, confirm);
+    } else if (!decision) cell.append(node('p', 'help', `${row.fragments.length} retained segment${row.fragments.length === 1 ? '' : 's'}. Choose one and confirm its text, or drop the caption.`));
+    return cell;
+  }
+  function renderReview() {
+    if (!state.analysis) { el('review-body').replaceChildren(); return; }
+    const tracks = el('track-filter');
+    tracks.replaceChildren(option('all', 'All tracks'));
+    for (const track of state.tracks) tracks.append(option(track.id, track.name));
+    if (!state.tracks.some(track => track.id === view.track)) view.track = 'all';
+    tracks.value = view.track;
+    el('review-filter').value = view.filter;
+    const rows = state.resolved.rows.filter(row => (view.track === 'all' || row.trackId === view.track) && (view.filter === 'all' || row.unresolved));
+    const pages = Math.max(1, Math.ceil(rows.length / 50));
+    view.page = Math.min(view.page, pages - 1);
+    const body = el('review-body');
+    body.replaceChildren();
+    for (const row of rows.slice(view.page * 50, (view.page + 1) * 50)) {
+      const tr = node('tr');
+      const identity = node('th', 'identity-cell');
+      identity.scope = 'row';
+      identity.append(node('strong', '', `#${row.original.number}`), node('span', 'track-name', state.tracks.find(track => track.id === row.trackId)?.name ?? row.trackId));
+      tr.append(identity, captionCell(row), decisionCell(row));
+      body.append(tr);
+    }
+    el('no-review-rows').hidden = rows.length > 0;
+    el('no-review-rows').textContent = view.filter === 'unresolved'
+      ? 'No unresolved captions in this view. Use “All captions” to inspect the result or revise a decision.'
+      : 'No captions match this track.';
+    el('page-label').textContent = rows.length ? `${view.page * 50 + 1}–${Math.min((view.page + 1) * 50, rows.length)} of ${rows.length.toLocaleString()} captions · page ${view.page + 1} of ${pages}` : '0 captions in this view';
+    el('previous-page').disabled = view.page === 0;
+    el('next-page').disabled = view.page >= pages - 1;
+  }
+  function render() { renderFeedback(); renderTracks(); renderCuts(); renderSummary(); renderReview(); }
+  el('edition-badge').textContent = config.edition === 'full' ? 'Full edition · up to 10 tracks' : 'Free edition · 1 real track';
+  el('edition-description').textContent = config.edition === 'full'
+    ? 'Recut up to 10 original language tracks with the same deletion plan.'
+    : 'A complete one-track workflow. The full edition adds up to 10 real tracks per plan.';
+  el('import-limit').textContent = `UTF-8 .srt · ${config.maxTracks} real track${config.maxTracks === 1 ? '' : 's'} · up to 5,000 captions and 2 MiB per track`;
+  el('version-label').textContent = `Subtitle Recut Desk ${config.version}`;
+  el('track-files').addEventListener('change', async event => {
+    const files = Array.from(event.target.files);
+    if (!files.length) return;
+    event.target.value = '';
+    resetView();
+    const pending = desk.loadFiles(files);
+    render();
+    await pending;
+    render();
+  });
+  el('plan-file').addEventListener('change', async event => {
+    const file = event.target.files[0];
+    if (!file) return;
+    event.target.value = '';
+    resetView();
+    const pending = desk.loadPlan(file);
+    render();
+    await pending;
+    render();
+  });
+  el('demo-button').addEventListener('click', () => run(() => { resetView(); desk.loadDemo(demoTracks, demoCuts); }));
+  el('clear-button').addEventListener('click', () => run(() => { resetView(); desk.clear(); }));
+  el('cuts-input').addEventListener('input', event => { desk.setCutsText(event.target.value); resetView(); render(); });
+  el('timeline-confirm').addEventListener('change', event => run(() => desk.setConfirmed(event.target.checked)));
+  el('analyze-button').addEventListener('click', () => run(() => { resetView(); desk.analyze(); el('step-review').scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
+  el('save-plan').addEventListener('click', () => run(() => download('subtitle-recut-original-cut-plan.json', desk.exportPlan(), 'application/json;charset=utf-8')));
+  el('apply-example').addEventListener('click', () => run(() => desk.applyExampleDecisions(demoDecisions)));
+  el('track-filter').addEventListener('change', event => { view.track = event.target.value; view.page = 0; renderReview(); });
+  el('review-filter').addEventListener('change', event => { view.filter = event.target.value; view.page = 0; renderReview(); });
+  el('previous-page').addEventListener('click', () => { view.page -= 1; renderReview(); });
+  el('next-page').addEventListener('click', () => { view.page += 1; renderReview(); });
+  el('download-report').addEventListener('click', () => run(() => download('subtitle-recut-review-report.json', JSON.stringify(desk.exportData().report, null, 2) + '\n', 'application/json;charset=utf-8')));
+  el('download-zip').addEventListener('click', () => run(() => {
+    const exported = desk.exportData();
+    const entries = exported.tracks.map((track, index) => ({ name: safeFilename(track.name, index, 'srt'), data: serializeSrt(track.cues) }));
+    entries.push({ name: 'subtitle-recut-review-report.json', data: JSON.stringify(exported.report, null, 2) + '\n' });
+    download('subtitle-recut-reviewed-output.zip', createZip(entries), 'application/zip');
+  }));
+  render();
+}
+
+if (typeof document !== 'undefined') mountRecutDesk();
+
+})();
+</script>
+</body>
+</html>

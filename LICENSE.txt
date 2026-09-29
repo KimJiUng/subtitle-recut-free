@@ -1,0 +1,63 @@
+SUBTITLE RECUT DESK — GITHUB FREE EDITION LICENSE
+Version 1.0, 2026-09-29
+Copyright 2026 Novaren. All rights not expressly granted are reserved.
+
+1. SCOPE
+This license applies only to the one-real-track free application and accompanying
+documentation and synthetic examples distributed in this repository or in the
+corresponding Subtitle-Recut-Desk-GitHub-Free-v1.0.zip package (the "Free Edition").
+The application retains the filename Subtitle-Recut-Desk-Trial-v1.0.html.
+
+This separate distribution license replaces the original marketplace package's
+no-redistribution restriction only for the Free Edition supplied here. It grants
+no rights to the paid Full edition, other products, development/research files,
+or material absent from this repository/package. The paid Full edition's license
+is unchanged. No paid Full application is included.
+
+2. FREE USE AND PRIVATE CHANGES
+You may use the Free Edition without a fee for personal work, internal business
+work (including your organization's internal team), and preparing work for
+clients. You may make private changes for those uses. This does not grant a right
+to distribute modified versions outside the GitHub platform rights in section 4.
+
+You may use, deliver and share subtitle files, cut plans and reports generated
+from material you are entitled to process. Those outputs are not redistribution
+of the tool. This license grants no rights to third-party video, subtitles or
+other input material.
+
+3. NONCOMMERCIAL, UNMODIFIED REDISTRIBUTION AND HOSTING
+You may copy, redistribute and host the unmodified Free Edition without charging
+for it or monetizing its distribution. Supply the complete application, this
+license, README, release notes and included examples together; retain their
+notices and do not imply that you authored or are endorsed by the original
+publisher. You may change the outer download archive's filename or compression
+without changing its contents. Ordinary free hosting of the unmodified HTML is
+allowed when the complete accompanying files and this license are accessible
+with it. Clearly identify your hosted copy as an unofficial mirror.
+
+You may not sell access, include it in a paid bundle, resell or sublicense the
+tool, or distribute modified versions except as expressly allowed in section 4.
+Commercial use of the tool to perform your own or client work under section 2 is
+allowed; charging to distribute the tool itself is not.
+
+4. GITHUB PLATFORM RIGHTS
+You may view, copy, display, perform, reproduce and fork this Free Edition through
+GitHub's ordinary functionality as permitted by GitHub's Terms of Service. This
+permission includes the rights required for public repository content under
+GitHub's Terms and takes precedence over sections 2 and 3 to that limited extent.
+It does not grant a general right to sell or redistribute modified versions
+outside those GitHub platform rights. Keep this license and copyright notice in
+any fork. This license does not limit GitHub's rights under its applicable terms.
+
+5. NO OPEN-SOURCE CLAIM
+This is a custom free-use and redistribution license with restrictions. It is
+not offered as an OSI open-source license. Source visibility and a GitHub fork
+button do not remove the restrictions above.
+
+6. RESPONSIBILITY AND WARRANTY
+Keep your original files and review retained text against the original material.
+The tool records timing transformations and your editorial decisions; it cannot
+guarantee speech/text alignment, suitability for a production, or time savings.
+The Free Edition is supplied "as is", without warranty to the extent permitted
+by applicable law. Mandatory rights and liabilities that cannot lawfully be
+excluded remain unaffected.

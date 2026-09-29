@@ -1,0 +1,37 @@
+1
+00:00:00,500 --> 00:00:01,800
+Welcome, café ☕.
+Synthetic EN track.
+
+2
+00:00:03,000 --> 00:00:05,000
+Keep this opening phrase.
+
+3
+00:00:04,200 --> 00:00:05,800
+Delete this whole aside.
+
+4
+00:00:05,800 --> 00:00:06,500
+Across the touching-cut seam.
+
+5
+00:00:06,500 --> 00:00:07,800
+After the edit — déjà vu.
+
+6
+00:00:08,000 --> 00:00:10,000
+Résumé: two tracks, one plan.
+
+7
+00:00:11,000 --> 00:00:15,000
+Left clause.
+Right clause.
+
+8
+00:00:12,500 --> 00:00:13,800
+Remove the second aside.
+
+9
+00:00:14,000 --> 00:00:17,000
+Fin. 日本語も保持。

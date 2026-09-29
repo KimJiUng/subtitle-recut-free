@@ -1,0 +1,46 @@
+SUBTITLE RECUT DESK / SYNTHETIC WORKED EXAMPLE
+
+All captions and editorial choices here are authored examples. They do not come from a client or prove that complete sentences fit a particular fragment of real video. The expected SRT files were entered independently of the tool's transformation code.
+
+FILES
+synthetic-en.srt: original EN track, 9 cues.
+synthetic-ko.srt: original KO track, 8 cues.
+expected-en.srt: expected final EN track, 5 cues after the choices below.
+expected-ko.srt: expected final KO track, 6 cues after the choices below.
+example-plan.json: valid cuts-only plan for either edition. It has no subtitle text, source filename or review choice.
+
+LOAD
+Choose "Load synthetic example" to load both authored tracks and all three original cut entries. Both editions allow this two-track tutorial. Confirm the original-timeline checkbox and choose "Analyze cuts & review".
+Full edition can also import both supplied original SRT files as ordinary files. Free edition accepts only one ordinary SRT per session; test the two originals separately if you use file import. Never use the expected (already retimed) files as the originals for this plan.
+
+ORIGINAL-TIME CUTS
+00:00:04,000 to 00:00:06,000
+00:00:06,000 to 00:00:07,000
+00:00:12,000 to 00:00:14,000
+The first two touch, so they merge to 00:00:04,000-00:00:07,000. Total removed time: 5,000 milliseconds. example-plan.json stores the two normalized intervals; importing it has the same timing effect as the three entered ranges. Use "Import cut plan", then acknowledge and analyze afresh.
+
+SIX EXPLICIT REVIEW CHOICES
+References below are ORIGINAL track cue numbers, not the renumbered output.
+
+1. EN cue 2: keep segment 1, original 00:00:03,000-00:00:04,000; final 00:00:03,000-00:00:04,000. Confirm this exact text:
+Keep this opening phrase.
+
+2. EN cue 5: keep segment 1, original 00:00:07,000-00:00:07,800; final 00:00:04,000-00:00:04,800. Confirm this exact text:
+After the edit — déjà vu.
+
+3. EN cue 7: choose "Drop this whole caption". It has two surviving pieces, but this example explicitly rejects both. Do not split or duplicate its sentence.
+
+4. KO cue 4: keep segment 1, original 00:00:07,000-00:00:07,500; final 00:00:04,000-00:00:04,500. Confirm this exact text:
+잘린 뒤의 인사입니다.
+
+5. KO cue 6: keep segment 1, original 00:00:11,500-00:00:12,000; final 00:00:08,500-00:00:09,000. Confirm this exact text:
+이 앞부분을 남깁니다.
+
+6. KO cue 7: choose "Drop this whole caption". This is an explicit whole-caption drop, even though one surviving piece exists.
+
+For the unmodified built-in example, "Apply the worked example decisions" applies exactly these six authored choices. It is a tutorial convenience, not an automatic decision for real files. Manually changing the example makes it a modified example, and the original expected totals no longer apply.
+
+CHECK AND EXPORT
+Starting total: 17 cues. Classification before review: 3 unchanged, 4 shifted without crossing, 4 fully removed, 6 requiring review. The six authored choices keep 4 and drop 2. Final total: 11 cues, EN 5 and KO 6, with zero unresolved reviews.
+Use "Download SRT" and compare cue times and text with expected-en.srt or expected-ko.srt. Use "Download report" to inspect original cue references and decisions. "Download all as ZIP" includes both tutorial outputs and the report in both editions. All output cues are ordered by new start time and renumbered; report rows preserve original order.
+Real-file trials done separately: EN should finish with 5 cues; KO should finish with 6. Each import starts a fresh review. "Save cut plan" saves only the normalized time ranges; reimport never restores these six decisions.
