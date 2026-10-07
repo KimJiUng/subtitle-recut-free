@@ -1,3 +1,21 @@
+# GitHub Free Edition v1.1.2
+
+Fixes data loss after a rejected replacement SRT import. Files are read and validated together in a staging state; the current workspace is replaced only after the complete selection is accepted. Invalid or mixed-validity SRT selections, capacity-limit rejections and read failures now preserve existing source tracks, results, confirmed decisions and unfinished retained-text drafts. A generation guard prevents an older pending read from overwriting newer actions.
+
+Successful replacement imports still invalidate the old review and require fresh original-timeline acknowledgement and boundary decisions. Timing rules, checkpoint format, one-real-track Free capacity and license permissions are unchanged. Existing v1.1 checkpoints remain supported. The six synthetic example files are unchanged.
+
+## v1.1.2 verification scope
+
+The product release passed 56 automated tests and an independent review of import races and release manifests. Finished applications were exercised in desktop Chrome served over localhost HTTP. The Trial accepted a real two-cue SRT, preserved a custom Unicode retained-text draft after a bad SRT import, and then confirmed and exported the retained caption. Separately, the Full synthetic tutorial kept two tracks, six completed decisions and zero unresolved crossings after a failed import; its before/after exported reports were byte-identical and the result contained 11 cues. These Full checks are product verification only: no Full application is included in this GitHub repository or ZIP.
+
+Direct file:// launch was not verified because browser tooling policy disallowed it. Mobile, all-browser compatibility, customer-production results and measured time savings remain unverified. This release's package and public-delivery checks are separate distribution evidence, not customer demand or revenue.
+
+Trial HTML SHA-256: `53c6a52896b552496a4eca39bb1a19a8cc1428d1617744087b4ff26e4a69135c`.
+
+The dedicated GitHub Free license changes only its two package/application filename references. Grants and restrictions remain unchanged; this is not an OSI open-source license.
+
+## Historical v1.1.1 notes
+
 # GitHub Free Edition v1.1.1
 
 Fixes a review-interface bug where switching a retained segment after typing could restore an older caption draft. The latest text now survives segment changes, including a blank draft. Explicit confirmation is still required for the newly selected segment. Timing rules, checkpoint format, free one-track capacity and license permissions are unchanged.

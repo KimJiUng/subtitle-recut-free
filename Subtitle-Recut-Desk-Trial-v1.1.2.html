@@ -87,9 +87,9 @@
       </section>
       <section class="workflow-notes" aria-label="Useful boundaries"><p><strong>What stays exact</strong><span>Millisecond timing, Unicode text, original cue references, and your explicit review decisions.</span></p><p><strong>What remains your judgment</strong><span>Which words belong in a surviving segment and whether the final captions fit the edited video.</span></p><p><strong>A free alternative</strong><span>Subtitle Edit offers broader subtitle and video-cutting tools. This desk focuses on shared cut plans and recorded boundary decisions.</span></p></section>
     </main>
-    <footer><span id="version-label">Subtitle Recut Desk 1.1.1</span><span>Local files. Clear decisions. A traceable result.</span></footer>
+    <footer><span id="version-label">Subtitle Recut Desk 1.1.2</span><span>Local files. Clear decisions. A traceable result.</span></footer>
   </div>
-  <script id="recut-config" type="application/json">{"edition":"trial","maxTracks":1,"maxCues":5000,"maxBytes":2097152,"maxCuts":100,"version":"1.1.1"}</script>
+  <script id="recut-config" type="application/json">{"edition":"trial","maxTracks":1,"maxCues":5000,"maxBytes":2097152,"maxCuts":100,"version":"1.1.2"}</script>
   <script type="module">
 (()=>{
 const __core = (() => {
@@ -806,13 +806,13 @@ function createDeskState(config) {
     async loadFiles(fileList) {
       const generation = ++state.generation;
       const wasDemo = state.demo;
-      invalidate();
-      Object.assign(state, { tracks: [], demo: false, demoPristine: false, loading: true, checkpointLoading: false, pendingKind: 'files' });
-      if (wasDemo) state.cutsText = '';
+      // Validate the complete candidate batch before replacing usable work.
+      // Stale reads never commit or restore snapshots over newer user actions.
+      Object.assign(state, { loading: true, checkpointLoading: false, pendingKind: 'files', error: '', message: '' });
       try {
         const files = Array.from(fileList);
         if (!files.length) throw new Error('Choose at least one UTF-8 SRT file.');
-        if (files.length > config.maxTracks) throw new Error(`This edition accepts ${config.maxTracks} real subtitle track${config.maxTracks === 1 ? '' : 's'} at a time. Your previous tracks have been cleared.`);
+        if (files.length > config.maxTracks) throw new Error(`This edition accepts ${config.maxTracks} real subtitle track${config.maxTracks === 1 ? '' : 's'} at a time.`);
         const tracks = await Promise.all(files.map(async (file, index) => {
           const name = file.name || `track-${index + 1}.srt`;
           try {
@@ -822,11 +822,13 @@ function createDeskState(config) {
           } catch (error) { throw new Error(`${name}: ${error.message}`); }
         }));
         if (generation !== state.generation) return false;
-        state.tracks = tracks;
+        invalidate();
+        Object.assign(state, { tracks, demo: false, demoPristine: false });
+        if (wasDemo) state.cutsText = '';
         state.message = `Loaded ${tracks.length} original subtitle track${tracks.length === 1 ? '' : 's'}. Add or check the cuts, then confirm the original timeline.`;
         return true;
       } catch (error) {
-        if (generation === state.generation) state.error = error.message;
+        if (generation === state.generation) state.error = `SRT files not imported: ${error.message} Your previous workspace is unchanged.`;
         return false;
       } finally { if (generation === state.generation) { state.loading = false; state.pendingKind = null; } }
     },
@@ -839,7 +841,7 @@ function createDeskState(config) {
     },
     setCutsText(value) {
       cancelCheckpointRead();
-      if (state.pendingKind === 'plan') {
+      if (state.pendingKind === 'plan' || state.pendingKind === 'files') {
         state.generation += 1;
         state.loading = false;
         state.pendingKind = null;
@@ -899,7 +901,7 @@ function createDeskState(config) {
     },
     applyExampleDecisions(decisions) {
       cancelCheckpointRead();
-      if (!state.analysis || !state.confirmed) throw new Error('Confirm the timeline and analyze before applying worked-example review decisions.');
+      if (!state.analysis || !state.confirmed || state.loading) throw new Error('Confirm the timeline and analyze before applying worked-example review decisions; wait for any file import to finish.');
       if (!state.demo || !state.demoPristine) throw new Error('Worked-example decisions are available only for the unedited original synthetic example.');
       const next = Object.fromEntries(Object.entries(decisions).map(([key, decision]) => [key, { ...decision }]));
       const resolved = resolveAnalysis(state.analysis, next);
@@ -1064,7 +1066,7 @@ function mountRecutDesk() {
     el('download-zip').disabled = !desk.canExport();
     el('download-report').disabled = !desk.canExport();
     el('example-actions').hidden = !(state.demo && state.demoPristine && summary);
-    el('apply-example').disabled = state.exampleApplied;
+    el('apply-example').disabled = state.exampleApplied || state.loading;
     el('example-result').textContent = state.exampleApplied
       ? 'Worked example applied: 4 retained-text decisions + 2 explicit drops → 11 output captions. These are authored editorial choices, not word timing.'
       : 'Optional: apply the six authored decisions for this synthetic example, or review each caption yourself.';
@@ -1181,10 +1183,9 @@ function mountRecutDesk() {
     const files = Array.from(event.target.files);
     if (!files.length) return;
     event.target.value = '';
-    resetView();
     const pending = desk.loadFiles(files);
     render();
-    await pending;
+    if (await pending) resetView();
     render();
   });
   el('plan-file').addEventListener('change', async event => {

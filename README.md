@@ -8,7 +8,7 @@ The free edition completes the entire workflow for one real subtitle track. It d
 
 [Try the free browser edition](https://pocketlogicprints.itch.io/subtitle-recut-desk): on itch.io, choose **Run tool**, then **Load synthetic example**. Both free versions accept one real SRT track; the supplied two-track tutorial is an exception.
 
-For a local copy, [download the free one-track ZIP](https://github.com/KimJiUng/subtitle-recut-free/releases/download/v1.1.1-github-free/Subtitle-Recut-Desk-GitHub-Free-v1.1.1.zip), extract it, and open `Subtitle-Recut-Desk-Trial-v1.1.1.html` in a modern desktop browser. The HTML embeds its code and styles; it needs no installation or runtime network connection. The `Trial` filename is retained because its bytes are identical to the v1.1.1 free application.
+For a local copy, [download the free one-track ZIP](https://github.com/KimJiUng/subtitle-recut-free/releases/download/v1.1.2-github-free/Subtitle-Recut-Desk-GitHub-Free-v1.1.2.zip), extract it, and open `Subtitle-Recut-Desk-Trial-v1.1.2.html` in a modern desktop browser. The HTML embeds its code and styles; it needs no installation or runtime network connection. The `Trial` filename is retained because its bytes are identical to the v1.1.2 free application.
 
 Direct opening from an extracted folder has not been verified by the browser tooling used for this release. Finished-app checks were performed in desktop Chrome served from localhost. Test with copies of your files in your own browser before relying on the result; mobile and all-browser compatibility are unverified.
 
@@ -52,7 +52,7 @@ Outputs are ordered by new start time and renumbered; report entries retain orig
 
 ## Worked synthetic example
 
-**Load synthetic example** loads two authored tracks even in this free edition. That is a tutorial exception, not permission to import two real files. Importing any real file replaces the whole tutorial state.
+**Load synthetic example** loads two authored tracks even in this free edition. That is a tutorial exception, not permission to import two real files. Successfully importing a real file replaces the whole tutorial state. A rejected or unreadable import leaves the current tutorial or review intact.
 
 The original tracks contain 17 cues. With the exact six review choices in [the worked example guide](examples/worked-example-guide.txt), four crossing captions are kept and two dropped, producing **5 EN cues + 6 KO cues**. The guide lists every retained segment and exact text. `expected-en.srt` and `expected-ko.srt` are reference outputs, not input files for another application of the plan.
 
@@ -62,7 +62,7 @@ The unchanged built-in tutorial also offers **Apply the worked example decisions
 
 The application processes imported files in browser memory. It performs no runtime network requests, automatic uploads, analytics, account login, or persistent browser storage. Visiting GitHub or a download page is separate from running the downloaded application. Closing or reloading loses unsaved work; download a checkpoint or your finished outputs first.
 
-Reports contain source filenames, caption text, cuts and review decisions. Saved cut plans contain only the product schema and original-time ranges: no filenames, caption text or decisions. Importing files/plans or editing cuts clears old results and requires fresh acknowledgement and review.
+Reports contain source filenames, caption text, cuts and review decisions. Saved cut plans contain only the product schema and original-time ranges: no filenames, caption text or decisions. Successful file/plan imports or cut edits clear old results and require fresh acknowledgement and review. Replacement SRT files are validated together before they replace the workspace. Invalid, mixed-validity, over-limit or unreadable selections preserve current source tracks, results, decisions and unfinished drafts. Newer actions invalidate an older pending import.
 
 Review checkpoints contain complete original subtitles, source names, cuts, confirmed decisions and unfinished drafts. Validation reparses source metadata and recomputes analysis before restoring matching choices; failed imports preserve your current work. A changed input/cut invalidates review as before. Checkpoints are editable local files, not authenticated evidence. Source filenames may contain up to 4,096 UTF-8 bytes and saved reviewed/draft text up to 2 MiB per caption. Escape-heavy saved content can exceed the 32 MiB checkpoint limit even if ordinary input fits.
 
