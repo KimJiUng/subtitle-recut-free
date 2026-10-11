@@ -1,3 +1,21 @@
+# GitHub Free Edition v1.1.3
+
+Prepared locally on 2026-10-11. Fixes data loss when a cut-plan import fails validation or cannot be read. The plan's schema, ranges and limits are validated before replacing current cuts or clearing review. Failed imports preserve source tracks, cuts, results, original-timeline acknowledgement, decisions and unfinished drafts. Review and exports pause during validation; newer actions supersede older pending reads.
+
+A successful new plan still clears the old review and requires fresh acknowledgement and analysis. Earlier SRT-import and retained-text fixes remain included. Timing rules, checkpoint format, one-real-track Free capacity and license grants are unchanged. Existing v1.1 checkpoints and the same six synthetic examples remain supported.
+
+## v1.1.3 verification scope
+
+The product passed 76 automated tests. The selected cut-plan run reproduced partial/completed review loss before the fix and passed all 22 tests afterward, covering invalid input, limits, read failures, delayed import races, valid replacement, checkpoint/output equality and actual interface event handlers. Local packaging checks verify deterministic HTML and ZIP bytes. Full-edition tests concern the source product only; the Full application is absent from this GitHub Free distribution.
+
+Finished v1.1.3 applications were checked in desktop Chrome served over localhost HTTP. Full imported the supplied EN 9-cue and KO 8-cue originals with tutorial cuts; five manual keeps and one KO drop produced EN 6 / KO 6 outputs. This is a deliberate review variant, not the guide's four-keep/two-drop 11-output result. A malformed plan preserved acknowledgement, the All captions view and zero unresolved decisions; actual report and checkpoint downloads were byte-identical before/after. Trial retained one confirmed Unicode caption and one unfinished draft, the selected segment, acknowledgement and one unresolved decision after an invalid-range plan, with byte-identical checkpoints. Confirming that draft exported the expected 1-2 second and 2-4 second captions with the custom text. Importing a valid 3-4 second plan cleared review and acknowledgement; re-analysis showed two unresolved captions with original text. Full checks concern the source product only; no paid application is included here.
+
+These small synthetic Chrome HTTP checks do not establish direct file:// launch, mobile/all-browser behavior, full-capacity browser performance, Resolve integration, public or paid-download hashes, customer-production correctness or measured time savings. Public-delivery verification remains separate. Historical browser observations below apply to their stated versions.
+
+The dedicated GitHub Free license changes only its two package/application filename references. Grants and restrictions remain unchanged; this is not an OSI open-source license.
+
+## Historical v1.1.2 notes
+
 # GitHub Free Edition v1.1.2
 
 Fixes data loss after a rejected replacement SRT import. Files are read and validated together in a staging state; the current workspace is replaced only after the complete selection is accepted. Invalid or mixed-validity SRT selections, capacity-limit rejections and read failures now preserve existing source tracks, results, confirmed decisions and unfinished retained-text drafts. A generation guard prevents an older pending read from overwriting newer actions.
