@@ -76,4 +76,6 @@ This repository and its **GitHub Free** ZIP use [the included free-edition licen
 
 If you need a shared session for up to ten real tracks, the [Full edition has a USD 5 one-time base price](https://pocketlogicprints.itch.io/subtitle-recut-desk). The cue, file-size and cut limits are the same. The free edition already includes all review decisions, result/report exports, plan reuse and checkpoint save/resume. A larger session is useful only if this focused workflow fits your work.
 
+The Full edition is also available on [Gumroad](https://tgaggr.gumroad.com/l/subtitle-recut-desk) at a one-time base price of USD 5. Choose itch.io or Gumroad for checkout; your purchase is managed by the store you choose.
+
 AI-assisted code, interface and documentation. See [release notes](RELEASE-NOTES.md) for the scope of prior verification and this repackaging.
